@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucida Cairo &amp; Coast — Bilingual Mobile Menu Preview | Wamda Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #110f0d;
+      --surface: #1b1714;
+      --card: #221d19;
+      --border: rgba(212, 175, 55, 0.24);
+      --text: #f8f5ef;
+      --muted: #b7aa97;
+      --gold: #d4af37;
+      --green: #22c55e;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(700px 340px at 80% 0%, rgba(212, 175, 55, 0.14), transparent 58%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      line-height: 1.6;
+      padding-block-end: 2.5rem;
+    }
+    html[lang="en"] body { font-family: var(--font-en); }
+    .wrap { width: min(1020px, calc(100% - 1.5rem)); margin-inline: auto; }
+    header {
+      border-block-end: 1px solid var(--border);
+      padding-block: 1rem;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;
+    }
+    .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: 0.04em; color: var(--gold); }
+    .btn {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 0.5rem 0.9rem;
+      border-radius: 10px;
+      font-family: inherit; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn-gold { background: var(--gold); color: #171209; border-color: transparent; }
+    .btn-wa { background: var(--green); color: #051f0d; border-color: transparent; justify-content: center; }
+    .hero {
+      margin-block: 1.25rem;
+      padding: 1.4rem;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.14), rgba(27, 23, 20, 0.96));
+      border: 1px solid var(--border);
+    }
+    .hero h1 { margin: 0 0 0.35rem; font-size: clamp(1.35rem, 2.8vw, 2rem); }
+    .hero p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+    .row-controls { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-block: 1rem; }
+    .pill-btn.active { background: var(--gold); color: #171209; border-color: transparent; }
+    .grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 1.2rem; align-items: start; }
+    .menu-list { display: grid; gap: 0.75rem; }
+    .dish {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .dish h3 { margin: 0 0 0.2rem; font-size: 0.98rem; }
+    .dish p { margin: 0; color: var(--muted); font-size: 0.84rem; }
+    .dish-price { color: var(--gold); font-weight: 800; font-size: 0.92rem; margin-block-start: 0.25rem; }
+    .qty-box { display: flex; align-items: center; gap: 0.45rem; flex: none; }
+    .qbtn {
+      width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05); color: var(--text); font-weight: 800; cursor: pointer;
+    }
+    .qbtn.add { background: var(--gold); color: #171209; border-color: transparent; }
+    .panel {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.15rem; position: sticky; top: 1rem;
+    }
+    .field {
+      width: 100%; padding: 0.55rem 0.75rem; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font-family: inherit; font-size: 0.85rem; margin-block-end: 0.6rem;
+    }
+    .msg-box {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.75rem; font-size: 0.79rem; color: var(--muted); white-space: pre-wrap; margin-block-start: 0.75rem;
+    }
+    footer { margin-block-start: 1.8rem; text-align: center; color: var(--muted); font-size: 0.8rem; }
+    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } .panel { position: static; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">LUCIDA • لوسيدا</div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button class="btn pill-btn active" data-br="Arkan Plaza (Cairo)" id="brCairo" type="button">Arkan Plaza (Cairo)</button>
+        <button class="btn pill-btn" data-br="North Coast" id="brCoast" type="button">Lucida Coast</button>
+        <button class="btn btn-gold" id="langBtn" type="button">English</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1 id="hTitle">منيو تفاعلي وحجز طاولات سريع — بديل فوري لملفات PDF</h1>
+      <p id="hSub">تصفح الأطباق باللغتين العربية والإنجليزية خلال ثوانٍ وأرسل طلب الطاولة أو الحجز مباشرة عبر واتساب.</p>
+    </section>
+
+    <div class="row-controls">
+      <button class="btn pill-btn active" data-cat="all" id="cAll" type="button">الكل</button>
+      <button class="btn pill-btn" data-cat="starters" id="cStart" type="button">مقبلات</button>
+      <button class="btn pill-btn" data-cat="mains" id="cMain" type="button">أطباق رئيسية</button>
+      <button class="btn pill-btn" data-cat="drinks" id="cDrink" type="button">مشروبات</button>
+      <button class="btn pill-btn" data-cat="desserts" id="cDes" type="button">حلويات</button>
+    </div>
+
+    <div class="grid">
+      <div id="menuList" class="menu-list"></div>
+
+      <aside class="panel">
+        <h2 style="margin:0 0 0.75rem;font-size:1.05rem;" id="panelTitle">حجز طاولة / تحضير الطلب</h2>
+        <div id="cartItems" style="display:grid;gap:0.35rem;font-size:0.86rem;margin-block-end:0.75rem;"></div>
+        <select id="guestsSel" class="field">
+          <option value="2 Guests">2 Guests / شخصان</option>
+          <option value="4 Guests">4 Guests / ٤ أشخاص</option>
+          <option value="6+ Guests">6+ Guests / ٦+ أشخاص</option>
+        </select>
+        <input id="timeInput" class="field" type="text" placeholder="الموعد المفضل (مثلاً: اليوم 9 مساءً)" />
+        <div style="display:flex;justify-content:space-between;font-weight:800;padding-block:0.55rem;border-block:1px solid var(--border);margin-block-end:0.75rem;">
+          <span id="totLbl">التقدير المبدئي</span>
+          <span id="totVal">0 EGP</span>
+        </div>
+        <a id="waLink" class="btn btn-wa" style="width:100%;" target="_blank" rel="noopener" href="#panel">معاينة رسالة الحجز (Demo)</a>
+        <div id="demoNote" style="font-size:0.74rem;color:var(--muted);margin-block-start:0.45rem;"></div>
+        <div id="msgBox" class="msg-box"></div>
+      </aside>
+    </div>
+
+    <footer>
+      Interactive Mobile Menu Concept by Wamda Studio — Built as a fast zero-monthly-fee replacement for static PDF menus
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const dishes = [
+        { id: "truf", cat: "starters", price: 340, ar: "بوراتا بالكمأة والطماطم المشوية", arD: "جبن بوراتا طازج مع زيت الكمأة والريحان", en: "Truffle Burrata", enD: "Fresh burrata, roasted heirloom cherry tomatoes, basil oil" },
+        { id: "cal", cat: "starters", price: 295, ar: "كاليماري مقرمش بالليمون والأعشاب", arD: "يُقدم مع صلصة أيولي حارة خفيفة", en: "Crispy Calamari", enD: "Served with charred lemon and chili herb aioli" },
+        { id: "rib", cat: "mains", price: 980, ar: "ريب آي ستيك مشوي على الحطب", arD: "مع بطاطا مهروسة بالثوم وصوص الفلفل", en: "Wood-Fired Ribeye", enD: "Truffle mash, roasted garlic jus" },
+        { id: "sal", cat: "mains", price: 760, ar: "سلمون مشوي بصوص الحمضيات", arD: "مع هليون مشوي وأرز بالأعشاب", en: "Citrus Glazed Salmon", enD: "Charred asparagus and herb risotto" },
+        { id: "pas", cat: "drinks", price: 195, ar: "موكتيل باشن فروت وزنجبيل", arD: "منعش محضر طازجاً", en: "Passion Ginger Cooler", enD: "Fresh passion fruit, ginger beer, mint" },
+        { id: "fon", cat: "desserts", price: 280, ar: "فوندان شوكولاتة دافئ", arD: "مع آيس كريم فانيليا مدغشقر", en: "Warm Chocolate Fondant", enD: "With Madagascar vanilla bean gelato" }
+      ];
+      const cart = { truf: 1, rib: 1 };
+      let lang = "ar", cat = "all", branch = "Arkan Plaza (Cairo)";
+
+      function render() {
+        const list = document.getElementById("menuList");
+        list.innerHTML = "";
+        dishes.filter((d) => cat === "all" || d.cat === cat).forEach((d) => {
+          const q = cart[d.id] || 0;
+          const el = document.createElement("div");
+          el.className = "dish";
+          el.innerHTML = `
+            <div>
+              <h3>${lang === "ar" ? d.ar : d.en}</h3>
+              <p>${lang === "ar" ? d.arD : d.enD}</p>
+              <div class="dish-price">${d.price} ${lang === "ar" ? "ج.م" : "EGP"}</div>
+            </div>
+            <div class="qty-box">
+              <button class="qbtn" data-id="${d.id}" data-act="dec" type="button">−</button>
+              <span>${q}</span>
+              <button class="qbtn add" data-id="${d.id}" data-act="inc" type="button">+</button>
+            </div>
+          `;
+          list.appendChild(el);
+        });
+
+        const cEl = document.getElementById("cartItems");
+        cEl.innerHTML = "";
+        let tot = 0;
+        const lines = [];
+        dishes.forEach((d) => {
+          const q = cart[d.id] || 0;
+          if (q > 0) {
+            tot += q * d.price;
+            lines.push(`- ${q}x ${d.en} (${q * d.price} EGP)`);
+            const r = document.createElement("div");
+            r.style.cssText = "display:flex;justify-content:space-between;";
+            r.innerHTML = `<span>${q}× ${lang === "ar" ? d.ar : d.en}</span><strong>${q * d.price} EGP</strong>`;
+            cEl.appendChild(r);
+          }
+        });
+        document.getElementById("totVal").textContent = `${tot} ${lang === "ar" ? "ج.م" : "EGP"}`;
+        const msg = `Lucida Reservation & Pre-Selection\nBranch: ${branch}\nGuests: ${document.getElementById("guestsSel").value}\nTime: ${document.getElementById("timeInput").value || "Tonight"}\nItems:\n${lines.join("\n") || "- Table booking only"}\nEst. Total: ${tot} EGP`;
+        document.getElementById("msgBox").textContent = msg;
+        document.getElementById("waLink").href = "https://wa.me/201000000000?text=" + encodeURIComponent(msg);
+      }
+
+      function setLang(next) {
+        lang = next;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const ar = lang === "ar";
+        document.getElementById("langBtn").textContent = ar ? "English" : "العربية";
+        document.getElementById("hTitle").textContent = ar ? "منيو تفاعلي وحجز طاولات سريع — بديل فوري لملفات PDF" : "Instant Interactive Menu & Table Reservation Preview";
+        document.getElementById("hSub").textContent = ar ? "تصفح الأطباق باللغتين العربية والإنجليزية خلال ثوانٍ وأرسل طلب الطاولة أو الحجز مباشرة عبر واتساب." : "Fast mobile-first AR/EN dining catalog replacing slow static PDF menus with direct WhatsApp table booking.";
+        document.getElementById("cAll").textContent = ar ? "الكل" : "All";
+        document.getElementById("cStart").textContent = ar ? "مقبلات" : "Starters";
+        document.getElementById("cMain").textContent = ar ? "أطباق رئيسية" : "Signature Mains";
+        document.getElementById("cDrink").textContent = ar ? "مشروبات" : "Drinks";
+        document.getElementById("cDes").textContent = ar ? "حلويات" : "Desserts";
+        document.getElementById("panelTitle").textContent = ar ? "حجز طاولة / تحضير الطلب" : "Table Booking & Pre-Order";
+        document.getElementById("totLbl").textContent = ar ? "التقدير المبدئي" : "Estimated Total";
+        document.getElementById("waLink").textContent = ar ? "معاينة إرسال الحجز عبر واتساب (Demo)" : "Preview WhatsApp Booking Link (Demo)";
+        document.getElementById("demoNote").textContent = ar ? "* رقم واتساب تجريبي — يتم ربطه برقم حجز لوسيدا الرسمي عند التسليم." : "* Uses placeholder number; final handoff connects Lucida's official booking WhatsApp.";
+        render();
+      }
+
+      document.getElementById("menuList").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-act]");
+        if (!b) return;
+        const id = b.getAttribute("data-id");
+        cart[id] = b.getAttribute("data-act") === "inc" ? (cart[id] || 0) + 1 : Math.max(0, (cart[id] || 0) - 1);
+        render();
+      });
+      document.querySelectorAll("[data-cat]").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll("[data-cat]").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        cat = b.getAttribute("data-cat");
+        render();
+      }));
+      document.querySelectorAll("[data-br]").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll("[data-br]").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        branch = b.getAttribute("data-br");
+        render();
+      }));
+      document.getElementById("guestsSel").addEventListener("change", render);
+      document.getElementById("timeInput").addEventListener("input", render);
+      document.getElementById("langBtn").addEventListener("click", () => setLang(lang === "ar" ? "en" : "ar"));
+      setLang("ar");
+    })();
+  </script>
+</body>
+</html>

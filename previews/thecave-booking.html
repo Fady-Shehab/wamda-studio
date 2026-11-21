@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Cave Climbing — معاينة الحجز التفاعلية | Wamda Studio Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=JetBrains+Mono:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1014;
+      --surface: #151a22;
+      --card: #1b222d;
+      --border: rgba(248, 250, 252, 0.12);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --grip: #f97316;
+      --amber: #fbbf24;
+      --grip-dim: rgba(249, 115, 22, 0.15);
+      --ok: #22c55e;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(800px 400px at 85% -10%, rgba(249, 115, 22, 0.18), transparent 55%),
+        radial-gradient(600px 350px at 10% 10%, rgba(251, 191, 36, 0.10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      line-height: 1.6;
+      padding-block-end: 3rem;
+    }
+    html[lang="en"] body { font-family: var(--font-en); }
+
+    /* Top Preview Bar */
+    .preview-ribbon {
+      background: rgba(21, 26, 34, 0.94);
+      border-block-end: 1px solid rgba(249, 115, 22, 0.35);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding-block: 0.7rem;
+      padding-inline: 1rem;
+    }
+    .ribbon-inner {
+      width: min(1140px, 100%);
+      margin-inline: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .brand-lock {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .rock-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--grip), var(--amber));
+      color: #160a02;
+      font-weight: 900;
+    }
+    .ribbon-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      padding: 0.48rem 0.9rem;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+    .btn-grip {
+      background: linear-gradient(135deg, var(--grip), #ea580c);
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn.active-mode {
+      background: var(--grip-dim);
+      border-color: var(--grip);
+      color: var(--amber);
+    }
+
+    /* Frame wrapper for Web vs Mobile App View */
+    .app-shell {
+      width: min(1140px, calc(100% - 1.5rem));
+      margin-inline: auto;
+      margin-block-start: 1.4rem;
+      transition: max-width 0.25s ease;
+    }
+    .app-shell.mobile-frame {
+      max-width: 410px;
+      background: #090b0e;
+      border: 6px solid #262e3d;
+      border-radius: 34px;
+      padding: 1rem;
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.65);
+    }
+    .app-shell.mobile-frame .layout-grid {
+      grid-template-columns: 1fr;
+    }
+    .app-shell.mobile-frame .cards-2 {
+      grid-template-columns: 1fr;
+    }
+    .app-shell.mobile-frame .cart-box {
+      position: static;
+    }
+
+    /* Hero + Branch Bar */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.14), rgba(21, 26, 34, 0.95));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-block-end: 1.25rem;
+    }
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      background: var(--grip-dim);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-block-end: 0.6rem;
+    }
+    h1 {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.35rem, 2.7vw, 2.05rem);
+      line-height: 1.25;
+      font-weight: 900;
+    }
+    .hero-sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      max-width: 60ch;
+    }
+    .branch-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-block-start: 1.1rem;
+    }
+    .branch-btn {
+      padding: 0.55rem 0.95rem;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .branch-btn.active {
+      border-color: var(--grip);
+      background: var(--grip-dim);
+      color: var(--text);
+    }
+
+    /* Main Grid */
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .section-title {
+      margin: 1.2rem 0 0.7rem;
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .section-title:first-child { margin-block-start: 0; }
+    .cards-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+    .item-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .item-card h3 {
+      margin: 0;
+      font-size: 0.97rem;
+      font-weight: 800;
+    }
+    .pop-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.16rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(251, 191, 36, 0.18);
+      color: var(--amber);
+      white-space: nowrap;
+    }
+    .item-meta {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .item-foot {
+      margin-block-start: auto;
+      padding-block-start: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+    .price-col strong {
+      display: block;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.98rem;
+    }
+    .price-col span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .qty-ctrl {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .qty-btn.plus {
+      background: var(--grip);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    /* Cart Drawer */
+    .cart-box {
+      background: var(--surface);
+      border: 1px solid rgba(249, 115, 22, 0.32);
+      border-radius: 18px;
+      padding: 1.2rem;
+      position: sticky;
+      top: 4.7rem;
+    }
+    .cart-box h2 {
+      margin: 0 0 0.7rem;
+      font-size: 1.04rem;
+    }
+    .branch-pill {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--amber);
+      background: var(--grip-dim);
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      margin-block-end: 0.8rem;
+    }
+    .cart-lines {
+      display: grid;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      margin-block-end: 0.9rem;
+    }
+    .cart-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .summary-box {
+      border-block: 1px solid var(--border);
+      padding-block: 0.7rem;
+      margin-block-end: 0.9rem;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.84rem;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+      font-size: 1.04rem;
+      color: var(--amber);
+      padding-block-start: 0.3rem;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      display: none;
+      place-items: center;
+      z-index: 80;
+      padding: 1rem;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal-card {
+      width: min(440px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--grip);
+      border-radius: 18px;
+      padding: 1.35rem;
+    }
+    .modal-card pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+    footer.note {
+      margin-block-start: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    @media (max-width: 880px) {
+      .layout-grid, .cards-2 { grid-template-columns: 1fr; }
+      .cart-box { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-ribbon">
+    <div class="ribbon-inner">
+      <div class="brand-lock">
+        <span class="rock-badge">TC</span>
+        <span id="navBrand">ذا كيف كلايمنج — The Cave Climbing (الرياض)</span>
+      </div>
+      <div class="ribbon-controls">
+        <button id="viewWebBtn" class="btn active-mode" type="button">🖥️ Web App</button>
+        <button id="viewMobBtn" class="btn" type="button">📱 Mobile App View</button>
+        <button id="langBtn" class="btn btn-grip" type="button">English (LTR)</button>
+        <a class="btn" href="../index.html" id="studioLink">Wamda Studio</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="appShell" class="app-shell">
+    <section class="hero-card">
+      <div class="hero-top">
+        <div>
+          <span class="tag-pill" id="heroTag">معاينة إعادة تصميم حيّة • الرياض (الحمراء &amp; النخيل)</span>
+          <h1 id="heroTitle">احجز جلسة التسلق، الكلاسات، والمعدات في ٣٠ ثانية</h1>
+          <p class="hero-sub" id="heroSub">واجهة ثنائية اللغة (عربي RTL / إنجليزي) بتسعير واضح شامل ضريبة 15% بالريال السعودي وتجربة موحدة للويب وتطبيق الموبايل.</p>
+        </div>
+      </div>
+
+      <div class="branch-bar" role="group" aria-label="Branch selector">
+        <button class="branch-btn active" data-branch="alhamra" id="brAlhamra" type="button">📍 الحمراء — Alhamra (British Int'l School)</button>
+        <button class="branch-btn" data-branch="alnakheel" id="brAlnakheel" type="button">📍 النخيل — Alnakheel (B1 Parking)</button>
+      </div>
+    </section>
+
+    <div class="layout-grid">
+      <div>
+        <div class="section-title">
+          <span id="secPasses">التذاكر والباقات — Passes</span>
+        </div>
+        <div id="passesGrid" class="cards-2"></div>
+
+        <div class="section-title">
+          <span id="secClasses">الكلاسات القادمة — Upcoming Classes (Nov 2026)</span>
+        </div>
+        <div id="classesGrid" class="cards-2"></div>
+
+        <div class="section-title">
+          <span id="secGear">تأجير المعدات والمتجر — Rentals &amp; Pro Shop</span>
+        </div>
+        <div id="gearGrid" class="cards-2"></div>
+      </div>
+
+      <aside class="cart-box">
+        <h2 id="cartHead">ملخص الحجز السريع — Booking Cart</h2>
+        <span id="activeBranchPill" class="branch-pill"></span>
+        <div id="cartLines" class="cart-lines"></div>
+        <div class="summary-box">
+          <div class="cart-line"><span id="lblSub">قبل الضريبة (Excl. VAT)</span><span id="valSub" dir="ltr">0.00 SAR</span></div>
+          <div class="cart-line"><span id="lblVat">ضريبة القيمة المضافة 15%</span><span id="valVat" dir="ltr">0.00 SAR</span></div>
+          <div class="summary-total"><span id="lblTotal">الإجمالي شامل الضريبة</span><span id="valTotal" dir="ltr">0.00 SAR</span></div>
+        </div>
+        <button id="confirmBtn" class="btn btn-grip" style="width:100%;justify-content:center;" type="button">تأكيد معاينة الحجز — Confirm Session Preview</button>
+      </aside>
+    </div>
+
+    <footer class="note" id="footNote">
+      Interactive Redesign Concept by Wamda Studio (wamda-studio) — Preview Prototype
+    </footer>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 style="margin:0 0 0.5rem;" id="modalTitle">ملخص الحجز التجريبي — Preview Summary</h3>
+      <pre id="modalSummary"></pre>
+      <button id="closeModalBtn" class="btn btn-grip" style="width:100%;justify-content:center;" type="button">إغلاق — Close</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const catalog = [
+        { id: "daypass", cat: "passes", total: 103.50, excl: 90.00, ar: "تذكرة يومية (Day Pass)", arMeta: "دخول يوم كامل لجميع المسارات", en: "Day Pass", enMeta: "Full-day climbing access", pop: false },
+        { id: "punch10", cat: "passes", total: 977.50, excl: 850.00, ar: "باقة ١٠ زيارات (10 Day Punchcard)", arMeta: "١٠ تذاكر صالحة لأي وقت", en: "10 Day Punchcard", enMeta: "10 flexible climbing sessions", pop: true },
+        { id: "intro", cat: "classes", total: 0.00, excl: 0.00, ar: "مقدمة للمبتدئين (First Time Intro)", arMeta: "٣٠ دقيقة • ٢٤ نوفمبر ٢٠٢٦ • مبتدئ", en: "Intro: First Time Experience", enMeta: "30 min • Nov 24, 2026 • Beginner", pop: false },
+        { id: "toprope", cat: "classes", total: 184.00, excl: 160.00, ar: "أساسيات الحبل العلوي (Top Rope)", arMeta: "٩٠ دقيقة • ٢٦ نوفمبر ٢٠٢٦ • مبتدئ", en: "Top Rope Fundamentals", enMeta: "90 min • Nov 26, 2026 • Beginner", pop: false },
+        { id: "lead", cat: "classes", total: 184.00, excl: 160.00, ar: "أساسيات التسلق المتقدم (Lead)", arMeta: "٩٠ دقيقة • ٢٨ نوفمبر ٢٠٢٦ • متوسط", en: "Advanced Lead Fundamentals", enMeta: "90 min • Nov 28, 2026 • Intermediate", pop: false },
+        { id: "harness", cat: "gear", total: 23.00, excl: 20.00, ar: "تأجير حزام تسلق (Harness)", arMeta: "لليوم الواحد", en: "Rental Harness", enMeta: "Per day", pop: false },
+        { id: "shoes", cat: "gear", total: 23.00, excl: 20.00, ar: "تأجير حذاء تسلق (Climbing Shoes)", arMeta: "لليوم الواحد", en: "Climbing Shoe Rental", enMeta: "Per day", pop: false },
+        { id: "chalkrent", cat: "gear", total: 11.50, excl: 10.00, ar: "تأجير ماغنيسيا سائلة (Liquid Chalk)", arMeta: "لليوم الواحد", en: "Liquid Chalk Rental", enMeta: "Per day", pop: false },
+        { id: "tape", cat: "gear", total: 34.99, excl: 30.43, ar: "شريط حماية للأصابع (Zero Tape)", arMeta: "متجر المعدات — Pro Shop", en: "Zero Tape", enMeta: "Pro Shop", pop: false },
+        { id: "chalk250", cat: "gear", total: 57.50, excl: 50.00, ar: "ماغنيسيا سائلة ٢٥٠ مل (Liquid Chalk)", arMeta: "متجر المعدات — Pro Shop", en: "Liquid Chalk 250ml", enMeta: "Pro Shop", pop: false }
+      ];
+
+      const cart = { daypass: 1, shoes: 1 };
+      let lang = "ar";
+      let branch = "alhamra";
+
+      function currLabel(val) {
+        if (val === 0) return lang === "ar" ? "مجاني" : "Free";
+        return lang === "ar" ? `${val.toFixed(2)} ر.س` : `${val.toFixed(2)} SAR`;
+      }
+
+      function renderCards() {
+        const groups = {
+          passes: document.getElementById("passesGrid"),
+          classes: document.getElementById("classesGrid"),
+          gear: document.getElementById("gearGrid")
+        };
+        Object.values(groups).forEach((g) => { g.innerHTML = ""; });
+
+        catalog.forEach((it) => {
+          const q = cart[it.id] || 0;
+          const card = document.createElement("article");
+          card.className = "item-card";
+          card.innerHTML = `
+            <div class="item-head">
+              <h3>${lang === "ar" ? it.ar : it.en}</h3>
+              ${it.pop ? `<span class="pop-tag">${lang === "ar" ? "الأكثر طلباً" : "Popular"}</span>` : ""}
+            </div>
+            <div class="item-meta">${lang === "ar" ? it.arMeta : it.enMeta}</div>
+            <div class="item-foot">
+              <div class="price-col">
+                <strong dir="ltr">${it.total === 0 ? (lang === "ar" ? "FREE" : "Free") : it.total.toFixed(2) + (lang === "ar" ? " ر.س" : " SAR")}</strong>
+                <span>${it.total === 0 ? (lang === "ar" ? "تسجيل مجاني" : "No VAT") : (lang === "ar" ? "قبل الضريبة: " : "Excl. VAT: ") + it.excl.toFixed(2)}</span>
+              </div>
+              <div class="qty-ctrl">
+                <button class="qty-btn" data-id="${it.id}" data-act="dec" type="button">−</button>
+                <span>${q}</span>
+                <button class="qty-btn plus" data-id="${it.id}" data-act="inc" type="button">+</button>
+              </div>
+            </div>
+          `;
+          groups[it.cat].appendChild(card);
+        });
+
+        renderCart();
+      }
+
+      function renderCart() {
+        const linesEl = document.getElementById("cartLines");
+        linesEl.innerHTML = "";
+        let sub = 0;
+        let tot = 0;
+        catalog.forEach((it) => {
+          const q = cart[it.id] || 0;
+          if (q > 0) {
+            sub += it.excl * q;
+            tot += it.total * q;
+            const row = document.createElement("div");
+            row.className = "cart-line";
+            row.innerHTML = `<span>${q}× ${lang === "ar" ? it.ar : it.en}</span><strong dir="ltr">${currLabel(it.total * q)}</strong>`;
+            linesEl.appendChild(row);
+          }
+        });
+        if (!linesEl.children.length) {
+          linesEl.innerHTML = `<span style="color:var(--muted)">${lang === "ar" ? "أضف تذكرة أو كلاس للمعاينة" : "Select a pass, class, or rental"}</span>`;
+        }
+        const vat = Math.max(0, tot - sub);
+        const unit = lang === "ar" ? " ر.س" : " SAR";
+        document.getElementById("valSub").textContent = sub.toFixed(2) + unit;
+        document.getElementById("valVat").textContent = vat.toFixed(2) + unit;
+        document.getElementById("valTotal").textContent = tot.toFixed(2) + unit;
+        document.getElementById("activeBranchPill").textContent =
+          branch === "alhamra"
+            ? (lang === "ar" ? "الفرع المختار: الحمراء (Alhamra)" : "Branch: The Cave Alhamra")
+            : (lang === "ar" ? "الفرع المختار: النخيل (Alnakheel)" : "Branch: The Cave Alnakheel");
+      }
+
+      function applyLang(next) {
+        lang = next;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const ar = lang === "ar";
+        document.getElementById("navBrand").textContent = ar ? "ذا كيف كلايمنج — The Cave Climbing (الرياض)" : "The Cave Climbing — Riyadh Booking Concept";
+        document.getElementById("langBtn").textContent = ar ? "English (LTR)" : "العربية (RTL)";
+        document.getElementById("heroTag").textContent = ar ? "معاينة إعادة تصميم حيّة • الرياض (الحمراء & النخيل)" : "Live Redesign Concept • Riyadh (Alhamra & Alnakheel)";
+        document.getElementById("heroTitle").textContent = ar ? "احجز جلسة التسلق، الكلاسات، والمعدات في ٣٠ ثانية" : "Book Your Climb, Classes & Gear in 30 Seconds";
+        document.getElementById("heroSub").textContent = ar
+          ? "واجهة ثنائية اللغة (عربي RTL / إنجليزي) بتسعير واضح شامل ضريبة 15% بالريال السعودي وتجربة موحدة للويب وتطبيق الموبايل."
+          : "Bilingual AR/EN booking flow with explicit SAR currency, 15% VAT breakdown, refreshed Nov 2026 class dates, and unified Web + Mobile App UX.";
+        document.getElementById("secPasses").textContent = ar ? "التذاكر والباقات — Passes" : "Memberships & Passes";
+        document.getElementById("secClasses").textContent = ar ? "الكلاسات القادمة — Upcoming Classes (Nov 2026)" : "Upcoming Classes & Coaching (Nov 2026)";
+        document.getElementById("secGear").textContent = ar ? "تأجير المعدات والمتجر — Rentals & Pro Shop" : "Equipment Rentals & Pro Shop";
+        document.getElementById("cartHead").textContent = ar ? "ملخص الحجز السريع" : "Quick Booking Cart";
+        document.getElementById("lblSub").textContent = ar ? "قبل الضريبة (Excl. VAT)" : "Subtotal (Excl. VAT)";
+        document.getElementById("lblVat").textContent = ar ? "ضريبة القيمة المضافة 15%" : "Saudi VAT (15%)";
+        document.getElementById("lblTotal").textContent = ar ? "الإجمالي شامل الضريبة" : "Total (Incl. VAT)";
+        document.getElementById("confirmBtn").textContent = ar ? "تأكيد معاينة الحجز" : "Confirm Session Preview";
+        document.getElementById("modalTitle").textContent = ar ? "ملخص الحجز التجريبي" : "Booking Preview Summary";
+        document.getElementById("closeModalBtn").textContent = ar ? "إغلاق" : "Close";
+        renderCards();
+      }
+
+      document.addEventListener("click", (e) => {
+        const qBtn = e.target.closest("button[data-act]");
+        if (qBtn) {
+          const id = qBtn.getAttribute("data-id");
+          const act = qBtn.getAttribute("data-act");
+          cart[id] = act === "inc" ? (cart[id] || 0) + 1 : Math.max(0, (cart[id] || 0) - 1);
+          renderCards();
+          return;
+        }
+        const bBtn = e.target.closest("button[data-branch]");
+        if (bBtn) {
+          document.querySelectorAll(".branch-btn").forEach((b) => b.classList.remove("active"));
+          bBtn.classList.add("active");
+          branch = bBtn.getAttribute("data-branch");
+          renderCart();
+        }
+      });
+
+      document.getElementById("langBtn").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+      document.getElementById("viewWebBtn").addEventListener("click", () => {
+        document.getElementById("appShell").classList.remove("mobile-frame");
+        document.getElementById("viewWebBtn").classList.add("active-mode");
+        document.getElementById("viewMobBtn").classList.remove("active-mode");
+      });
+      document.getElementById("viewMobBtn").addEventListener("click", () => {
+        document.getElementById("appShell").classList.add("mobile-frame");
+        document.getElementById("viewMobBtn").classList.add("active-mode");
+        document.getElementById("viewWebBtn").classList.remove("active-mode");
+      });
+      document.getElementById("confirmBtn").addEventListener("click", () => {
+        const itemsTxt = catalog.filter((it) => (cart[it.id] || 0) > 0)
+          .map((it) => `- ${cart[it.id]}x ${it.en}: ${(it.total * cart[it.id]).toFixed(2)} SAR`)
+          .join("\n") || "No items selected.";
+        document.getElementById("modalSummary").textContent =
+          `The Cave Climbing (${branch === "alhamra" ? "Alhamra" : "Alnakheel"})\n` +
+          `${itemsTxt}\n` +
+          `Total Incl. VAT: ${document.getElementById("valTotal").textContent}\n` +
+          `(Interactive UI Prototype — Wamda Studio)`;
+        document.getElementById("modalBackdrop").classList.add("open");
+      });
+      document.getElementById("closeModalBtn").addEventListener("click", () => {
+        document.getElementById("modalBackdrop").classList.remove("open");
+      });
+
+      applyLang("ar");
+    })();
+  </script>
+</body>
+</html>
