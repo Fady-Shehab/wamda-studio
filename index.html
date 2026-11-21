@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ومضة ستوديو | Wamda Studio — معاينة حية قبل الدفع</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="brand" href="#top">
+        <span class="brand-mark">W</span>
+        <span data-i18n="brandName">ومضة ستوديو</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="#services" data-i18n="navServices">الخدمات والأسعار</a>
+        <a href="#demos" data-i18n="navDemos">معاينات حية</a>
+        <a href="#kit" data-i18n="navKit">باقة القوالب</a>
+        <a href="#order" data-i18n="navOrder">اطلب معاينة مجانية</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="langToggle" class="btn btn-ghost" type="button" aria-label="Switch language">
+          English (LTR)
+        </button>
+        <a class="btn btn-primary" href="#order" data-i18n="navCta">ابدأ طلبك</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge-pill">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span data-i18n="heroBadge">معاينة حية قبل الدفع • تسليم خلال ١ إلى ٢ ساعة</span>
+          </div>
+          <h1 data-i18n="heroTitle">ومضة ستوديو — حلول ويب عربية سريعة، تعديلات RTL وأتمتة فورية</h1>
+          <p class="hero-sub" data-i18n="heroSub">محتاج تصلّح تصميم موقعك بالعربي (RTL)، صفحة هبوط احترافية، منيو QR مرتبط بالواتساب بدون اشتراك شهري، سيرة ذاتية متوافقة مع ATS، أو سكريبت Python/Excel النهارده؟ بتشوف معاينة شغالة لطلبك الأول — وتدفع بس لما يعجبك الشغل.</p>
+
+          <div class="hero-cta-row">
+            <a class="btn btn-primary" href="#demos" data-i18n="ctaDemos">جرّب المعاينات التفاعلية الآن</a>
+            <a class="btn btn-ghost" href="#order" data-i18n="ctaOrder">جهّز ملخص طلبك في ٣٠ ثانية</a>
+          </div>
+
+          <div class="ai-note" data-i18n="aiDisclosure">
+            شفافية كاملة: نعتمد على هندسة سريعة مدعومة بالذكاء الاصطناعي مع اختبار حي وكود نظيف وموثّق يُسلّم لك بالكامل.
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="How it works">
+          <div class="panel-title">
+            <span data-i18n="howTitle">كيف يعمل نظام «المعاينة قبل الدفع»؟</span>
+            <span class="panel-tag" dir="ltr">0 RISK</span>
+          </div>
+          <div class="step-list">
+            <div class="step-item">
+              <span class="step-num">1</span>
+              <div>
+                <strong data-i18n="step1Title">١. ابعت تفاصيل طلبك</strong>
+                <span data-i18n="step1Desc">رابط موقعك، ملف السيرة الذاتية، أو وصف السكريبت المطلوب.</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">2</span>
+              <div>
+                <strong data-i18n="step2Title">٢. شاهد المعاينة الحية</strong>
+                <span data-i18n="step2Desc">نجهز لك نسخة تعمل فعلياً خلال ١–٢ ساعة لتختبرها بنفسك قبل الدفع.</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">3</span>
+              <div>
+                <strong data-i18n="step3Title">٣. ادفع واستلم الكود فوراً</strong>
+                <span data-i18n="step3Desc">تحويل فوري عبر InstaPay أو Vodafone Cash عند رضاك التام.</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="servicesTitle">الخدمات المصغرة وأسعار الإطلاق</h2>
+            <p data-i18n="servicesSub">أسعار واضحة ومناسبة للشركات الناشئة، المتاجر الإلكترونية، والمستقلين في مصر والخليج.</p>
+          </div>
+          <span class="pay-chip" data-i18n="payBadge">InstaPay • Vodafone Cash (تحويل فوري بعد المعاينة)</span>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge" data-i18n="s1Price">150 – 300 ج.م</span>
+              <span class="eta-tag" data-i18n="s1Eta">تسليم: 1–2 ساعة</span>
+            </div>
+            <h3 data-i18n="s1Title">إصلاح وتطوير صفحات الويب و RTL (سلة / زد / Shopify / React / HTML)</h3>
+            <p data-i18n="s1Desc">إصلاح محاذاة العربية RTL، مشاكل العرض على الموبايل، تخصيص CSS لمتاجر سلة وزد، أو تصميم صفحة هبوط سريعة من الصفر.</p>
+            <ul class="bullet-mini">
+              <li data-i18n="s1b1">استخدام خصائص CSS المنطقية لضمان توازن العربي والإنجليزي</li>
+              <li data-i18n="s1b2">معاينة حية عبر رابط تجريبي قبل أي دفع</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge" data-i18n="s2Price">200 ج.م</span>
+              <span class="eta-tag" data-i18n="s2Eta">تسليم: 1 ساعة</span>
+            </div>
+            <h3 data-i18n="s2Title">منيو QR تفاعلي وطلب عبر واتساب (استضافة مجانية مدى الحياة)</h3>
+            <p data-i18n="s2Desc">بديل احترافي للمنيوهات ذات الاشتراك الشهري: سلة طلبات فورية ترسل الطلب منسقاً مباشرة على رقم الواتساب الخاص بك.</p>
+            <ul class="bullet-mini">
+              <li data-i18n="s2b1">يدعم العربي والإنجليزي بدون اشتراك شهري أو عمولة</li>
+              <li data-i18n="s2b2">جاهز للاستضافة المجانية الدائمة + رمز QR جاهز للطباعة</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge" data-i18n="s3Price">150 ج.م</span>
+              <span class="eta-tag" data-i18n="s3Eta">تسليم: 45 دقيقة</span>
+            </div>
+            <h3 data-i18n="s3Title">تطوير سيرة ذاتية ATS بالعربي والإنجليزي + تحسين LinkedIn</h3>
+            <p data-i18n="s3Desc">إعادة صياغة وهيكلة السيرة الذاتية بتصميم نظيف مقروء لأنظمة الفرز الآلي (ATS) مع تحسين الكلمات المفتاحية لحساب LinkedIn.</p>
+            <ul class="bullet-mini">
+              <li data-i18n="s3b1">ملف HTML قابل للطباعة كـ PDF بجودة فائقة + نسخة نصية</li>
+              <li data-i18n="s3b2">تعديل فوري وفق المسمى الوظيفي المستهدف</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge" data-i18n="s4Price">150 – 300 ج.م</span>
+              <span class="eta-tag" data-i18n="s4Eta">تسليم: 1–2 ساعة</span>
+            </div>
+            <h3 data-i18n="s4Title">سكريبتات Excel / Google Sheets / Python + فحص سرعة وحماية موقعك</h3>
+            <p data-i18n="s4Desc">تنظيف وتوحيد ملفات البيانات، معادلات ذكية، أو فحص سلبي عام (Passive) لرؤوس الأمان HTTP Headers وسرعة الصفحة مع كود الإصلاح الجاهز.</p>
+            <ul class="bullet-mini">
+              <li data-i18n="s4b1">ملف إعداد جاهز للنسخ على Vercel / Nginx / .htaccess</li>
+              <li data-i18n="s4b2">كود Python موثّق بالكامل وسهل التشغيل</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="demosTitle">معاينات تفاعلية حيّة (اضغط وجرّب بنفسك)</h2>
+            <p data-i18n="demosSub">كل نموذج أدناه يعمل بالكامل في المتصفح — استعرض جودة التنفيذ قبل طلب أي خدمة.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge">DEMO 01</span>
+              <span class="eta-tag">RTL / LTR</span>
+            </div>
+            <h3 data-i18n="d1Title">قالب صفحة هبوط ثنائي اللغة (RTL + LTR)</h3>
+            <p data-i18n="d1Desc">تجربة تبديل فوري بين العربية والإنجليزية مع محوّل عملات (ج.م / ر.س / USD) وأزرار متجاوبة بالكامل.</p>
+            <div class="card-foot">
+              <a class="btn btn-primary" href="./demos/rtl-saas.html" data-i18n="openDemo">فتح المعاينة الحية</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge">DEMO 02</span>
+              <span class="eta-tag">WhatsApp QR</span>
+            </div>
+            <h3 data-i18n="d2Title">منيو مطعم/كافيه تفاعلي مع سلة واتساب</h3>
+            <p data-i18n="d2Desc">أضف منتجات للسلة، احسب الإجمالي بالجنيه، وأنشئ رسالة طلب واتساب منسّقة جاهزة للإرسال بضغطة واحدة.</p>
+            <div class="card-foot">
+              <a class="btn btn-primary" href="./demos/qr-menu.html" data-i18n="openDemo">فتح المعاينة الحية</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="price-badge">DEMO 03</span>
+              <span class="eta-tag">Audit &amp; ATS CV</span>
+            </div>
+            <h3 data-i18n="d3Title">تقرير فحص أمان/سرعة + نموذج CV ATS</h3>
+            <p data-i18n="d3Desc">استعراض تفاعلي لبطاقة فحص رؤوس الأمان (CSP / HSTS) مع أكواد الإصلاح + مقارنة قبل وبعد لسيرة ذاتية قابلة للطباعة.</p>
+            <div class="card-foot">
+              <a class="btn btn-primary" href="./demos/audit-cv.html" data-i18n="openDemo">فتح المعاينة الحية</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kit" class="section">
+      <div class="container">
+        <div class="kit-banner">
+          <div>
+            <div class="badge-pill" style="margin-block-end:0.6rem;">
+              <span data-i18n="kitPrice">150 ج.م • تسليم فوري</span>
+            </div>
+            <h3 data-i18n="kitTitle">باقة القوالب الجاهزة (قالب SaaS عربي/إنجليزي RTL + قالب منيو واتساب)</h3>
+            <p data-i18n="kitDesc">احصل على الكود المصدري النظيف للقالبين مع دليل التخصيص والنشر المجاني على GitHub Pages / Cloudflare Pages في دقائق بدون أي تبعيات خارجية.</p>
+          </div>
+          <a class="btn btn-amber" href="#order" data-i18n="kitCta">اطلب باقة القوالب (ZIP)</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="order" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="orderTitle">جهّز طلبك للمعاينة المجانية</h2>
+            <p data-i18n="orderSub">اختر الخدمة واكتب التفاصيل، ثم انسخ الرسالة وأرسلها عبر قناة التواصل المعتمدة لبدء المعاينة خلال دقائق.</p>
+          </div>
+        </div>
+
+        <div class="brief-box">
+          <div>
+            <div class="field-group">
+              <label for="serviceSelect" data-i18n="lblService">نوع الخدمة / الباقة</label>
+              <select id="serviceSelect" class="field-control">
+                <option value="Web / Arabic RTL Fix (EGP 150-300)">إصلاح ويب / عربي RTL (150–300 ج.م)</option>
+                <option value="WhatsApp QR Menu (EGP 200)">منيو QR وواتساب تفاعلي (200 ج.م)</option>
+                <option value="ATS Bilingual CV + LinkedIn (EGP 150)">سيرة ذاتية ATS + LinkedIn (150 ج.م)</option>
+                <option value="Python / Excel / Security Header Audit (EGP 150-300)">سكريبت Python/Excel أو فحص Headers (150–300 ج.م)</option>
+                <option value="Ready Starter Kit ZIP (EGP 150)">باقة القوالب الجاهزة ZIP (150 ج.م)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="targetLink" data-i18n="lblLink">رابط الموقع / المتجر أو وصف سريع</label>
+              <input id="targetLink" class="field-control" type="text" placeholder="https://example.com or short description" />
+            </div>
+            <div class="field-group">
+              <label for="notesInput" data-i18n="lblNotes">ما النتيجة المطلوبة تحديداً؟</label>
+              <textarea id="notesInput" class="field-control" rows="3" placeholder="مثال: إصلاح القائمة في نسخة الموبايل العربية / تحويل منيو الكافيه لرابط واتساب"></textarea>
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:0.86rem;font-weight:700;color:var(--text-soft);margin-block-end:0.45rem;" data-i18n="lblPreview">ملخص الطلب الجاهز للإرسال</label>
+            <div id="briefOutput" class="preview-output"></div>
+            <div class="payment-strip">
+              <button id="copyBriefBtn" class="btn btn-primary" type="button" data-i18n="copyBtn">نسخ ملخص الطلب</button>
+              <span class="pay-chip" id="discordChannelChip" data-i18n="contactStatus">تواصل عبر Discord: @potato_chips_with_ketchup</span>
+            </div>
+            <div id="copyToast" class="toast" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span data-i18n="footerBrand">© 2026 ومضة ستوديو (Wamda Studio) — معاينة حية قبل الدفع</span>
+      <span data-i18n="footerPay">الدفع المتاح: InstaPay • Vodafone Cash (تحويل فوري بعد المعاينة)</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const i18n = {
+        ar: {
+          brandName: "ومضة ستوديو",
+          navServices: "الخدمات والأسعار",
+          navDemos: "معاينات حية",
+          navKit: "باقة القوالب",
+          navOrder: "اطلب معاينة مجانية",
+          navCta: "ابدأ طلبك",
+          heroBadge: "معاينة حية قبل الدفع • تسليم خلال ١ إلى ٢ ساعة",
+          heroTitle: "ومضة ستوديو — حلول ويب عربية سريعة، تعديلات RTL وأتمتة فورية",
+          heroSub: "محتاج تصلّح تصميم موقعك بالعربي (RTL)، صفحة هبوط احترافية، منيو QR مرتبط بالواتساب بدون اشتراك شهري، سيرة ذاتية متوافقة مع ATS، أو سكريبت Python/Excel النهارده؟ بتشوف معاينة شغالة لطلبك الأول — وتدفع بس لما يعجبك الشغل.",
+          ctaDemos: "جرّب المعاينات التفاعلية الآن",
+          ctaOrder: "جهّز ملخص طلبك في ٣٠ ثانية",
+          aiDisclosure: "شفافية كاملة: نعتمد على هندسة سريعة مدعومة بالذكاء الاصطناعي مع اختبار حي وكود نظيف وموثّق يُسلّم لك بالكامل.",
+          howTitle: "كيف يعمل نظام «المعاينة قبل الدفع»؟",
+          step1Title: "١. ابعت تفاصيل طلبك",
+          step1Desc: "رابط موقعك، ملف السيرة الذاتية، أو وصف السكريبت المطلوب.",
+          step2Title: "٢. شاهد المعاينة الحية",
+          step2Desc: "نجهز لك نسخة تعمل فعلياً خلال ١–٢ ساعة لتختبرها بنفسك قبل الدفع.",
+          step3Title: "٣. ادفع واستلم الكود فوراً",
+          step3Desc: "تحويل فوري عبر InstaPay أو Vodafone Cash عند رضاك التام.",
+          servicesTitle: "الخدمات المصغرة وأسعار الإطلاق",
+          servicesSub: "أسعار واضحة ومناسبة للشركات الناشئة، المتاجر الإلكترونية، والمستقلين في مصر والخليج.",
+          payBadge: "InstaPay • Vodafone Cash (تحويل فوري بعد المعاينة)",
+          s1Price: "150 – 300 ج.م",
+          s1Eta: "تسليم: 1–2 ساعة",
+          s1Title: "إصلاح وتطوير صفحات الويب و RTL (سلة / زد / Shopify / React / HTML)",
+          s1Desc: "إصلاح محاذاة العربية RTL، مشاكل العرض على الموبايل، تخصيص CSS لمتاجر سلة وزد، أو تصميم صفحة هبوط سريعة من الصفر.",
+          s1b1: "استخدام خصائص CSS المنطقية لضمان توازن العربي والإنجليزي",
+          s1b2: "معاينة حية عبر رابط تجريبي قبل أي دفع",
+          s2Price: "200 ج.م",
+          s2Eta: "تسليم: 1 ساعة",
+          s2Title: "منيو QR تفاعلي وطلب عبر واتساب (استضافة مجانية مدى الحياة)",
+          s2Desc: "بديل احترافي للمنيوهات ذات الاشتراك الشهري: سلة طلبات فورية ترسل الطلب منسقاً مباشرة على رقم الواتساب الخاص بك.",
+          s2b1: "يدعم العربي والإنجليزي بدون اشتراك شهري أو عمولة",
+          s2b2: "جاهز للاستضافة المجانية الدائمة + رمز QR جاهز للطباعة",
+          s3Price: "150 ج.م",
+          s3Eta: "تسليم: 45 دقيقة",
+          s3Title: "تطوير سيرة ذاتية ATS بالعربي والإنجليزي + تحسين LinkedIn",
+          s3Desc: "إعادة صياغة وهيكلة السيرة الذاتية بتصميم نظيف مقروء لأنظمة الفرز الآلي (ATS) مع تحسين الكلمات المفتاحية لحساب LinkedIn.",
+          s3b1: "ملف HTML قابل للطباعة كـ PDF بجودة فائقة + نسخة نصية",
+          s3b2: "تعديل فوري وفق المسمى الوظيفي المستهدف",
+          s4Price: "150 – 300 ج.م",
+          s4Eta: "تسليم: 1–2 ساعة",
+          s4Title: "سكريبتات Excel / Google Sheets / Python + فحص سرعة وحماية موقعك",
+          s4Desc: "تنظيف وتوحيد ملفات البيانات، معادلات ذكية، أو فحص سلبي عام (Passive) لرؤوس الأمان HTTP Headers وسرعة الصفحة مع كود الإصلاح الجاهز.",
+          s4b1: "ملف إعداد جاهز للنسخ على Vercel / Nginx / .htaccess",
+          s4b2: "كود Python موثّق بالكامل وسهل التشغيل",
+          demosTitle: "معاينات تفاعلية حيّة (اضغط وجرّب بنفسك)",
+          demosSub: "كل نموذج أدناه يعمل بالكامل في المتصفح — استعرض جودة التنفيذ قبل طلب أي خدمة.",
+          d1Title: "قالب صفحة هبوط ثنائي اللغة (RTL + LTR)",
+          d1Desc: "تجربة تبديل فوري بين العربية والإنجليزية مع محوّل عملات (ج.م / ر.س / USD) وأزرار متجاوبة بالكامل.",
+          d2Title: "منيو مطعم/كافيه تفاعلي مع سلة واتساب",
+          d2Desc: "أضف منتجات للسلة، احسب الإجمالي بالجنيه، وأنشئ رسالة طلب واتساب منسّقة جاهزة للإرسال بضغطة واحدة.",
+          d3Title: "تقرير فحص أمان/سرعة + نموذج CV ATS",
+          d3Desc: "استعراض تفاعلي لبطاقة فحص رؤوس الأمان (CSP / HSTS) مع أكواد الإصلاح + مقارنة قبل وبعد لسيرة ذاتية قابلة للطباعة.",
+          openDemo: "فتح المعاينة الحية",
+          kitPrice: "150 ج.م • تسليم فوري",
+          kitTitle: "باقة القوالب الجاهزة (قالب SaaS عربي/إنجليزي RTL + قالب منيو واتساب)",
+          kitDesc: "احصل على الكود المصدري النظيف للقالبين مع دليل التخصيص والنشر المجاني على GitHub Pages / Cloudflare Pages في دقائق بدون أي تبعيات خارجية.",
+          kitCta: "اطلب باقة القوالب (ZIP)",
+          orderTitle: "جهّز طلبك للمعاينة المجانية",
+          orderSub: "اختر الخدمة واكتب التفاصيل، ثم انسخ الرسالة وأرسلها عبر قناة التواصل المعتمدة لبدء المعاينة خلال دقائق.",
+          lblService: "نوع الخدمة / الباقة",
+          lblLink: "رابط الموقع / المتجر أو وصف سريع",
+          lblNotes: "ما النتيجة المطلوبة تحديداً؟",
+          lblPreview: "ملخص الطلب الجاهز للإرسال",
+          copyBtn: "نسخ ملخص الطلب",
+          contactStatus: "تواصل عبر Discord: @potato_chips_with_ketchup",
+          footerBrand: "© 2026 ومضة ستوديو (Wamda Studio) — معاينة حية قبل الدفع",
+          footerPay: "الدفع المتاح: InstaPay • Vodafone Cash (تحويل فوري بعد المعاينة)",
+          toggleBtn: "English (LTR)",
+          copiedMsg: "تم نسخ ملخص الطلب بنجاح!"
+        },
+        en: {
+          brandName: "Wamda Studio",
+          navServices: "Services & Pricing",
+          navDemos: "Live Demos",
+          navKit: "Starter Kit",
+          navOrder: "Request Preview",
+          navCta: "Start Request",
+          heroBadge: "Live Preview Before You Pay • 1–2 Hour Turnaround",
+          heroTitle: "Fast Bilingual Web, RTL & Automation Micro-Studio",
+          heroSub: "Need an Arabic RTL fix, a clean landing page, a zero-monthly-fee WhatsApp QR menu, an ATS-ready CV, or a quick Python/Excel script today? See a live working preview of your deliverable first — pay only if you love it.",
+          ctaDemos: "Try Live Interactive Demos",
+          ctaOrder: "Build Request Brief (30s)",
+          aiDisclosure: "Transparent workflow: Built using rapid AI-assisted engineering with full live testing and clean, documented source code delivered to you.",
+          howTitle: "How 'Live Preview First' Works",
+          step1Title: "1. Share Your Task Brief",
+          step1Desc: "Send your site URL, current CV, or script/data goal.",
+          step2Title: "2. Test the Working Preview",
+          step2Desc: "Receive a live working prototype in 1–2 hours before paying a single pound.",
+          step3Title: "3. Pay & Get Clean Source",
+          step3Desc: "Instant settlement via InstaPay or Vodafone Cash once approved.",
+          servicesTitle: "Micro-Services & Launch Pricing",
+          servicesSub: "Transparent impulse pricing built for founders, stores, and professionals in Egypt & MENA.",
+          payBadge: "InstaPay • Vodafone Cash (Instant settlement after preview approval)",
+          s1Price: "EGP 150–300",
+          s1Eta: "Turnaround: 1–2h",
+          s1Title: "Web, Landing Page & Arabic RTL Fixes (Salla / Zid / Shopify / React / HTML)",
+          s1Desc: "Fix Arabic RTL alignment, mobile overflow bugs, Salla/Zid custom CSS, or ship a responsive bilingual landing page fast.",
+          s1b1: "Modern CSS logical properties for true AR/EN visual balance",
+          s1b2: "Live preview URL delivered before payment",
+          s2Price: "EGP 200",
+          s2Eta: "Turnaround: 1h",
+          s2Title: "Interactive WhatsApp QR Menu & Mini-Catalog (Zero Monthly Fee)",
+          s2Desc: "Replace recurring SaaS menu fees with a fast static mobile catalog that sends formatted orders straight to your WhatsApp.",
+          s2b1: "Bilingual AR/EN with zero monthly fees or order commissions",
+          s2b2: "Free lifetime static hosting setup + print-ready QR guidance",
+          s3Price: "EGP 150",
+          s3Eta: "Turnaround: 45m",
+          s3Title: "ATS Bilingual CV Overhaul + LinkedIn Optimization",
+          s3Desc: "Restructure and rewrite your Arabic/English resume into an ATS-clean layout with targeted LinkedIn keyword polish.",
+          s3b1: "Print-to-PDF crisp HTML layout + plain-text ATS check",
+          s3b2: "Tailored directly to your target role",
+          s4Price: "EGP 150–300",
+          s4Eta: "Turnaround: 1–2h",
+          s4Title: "Excel / Sheets / Python Scripts + Passive Speed & Security-Header Audit",
+          s4Desc: "Automate messy CSV/Excel workflows or run a strictly passive public check on HTTP security headers & speed with drop-in fixes.",
+          s4b1: "Copy-paste Vercel / Nginx / .htaccess config included",
+          s4b2: "Clean, documented Python scripts ready to run",
+          demosTitle: "Live Interactive Demos (Click & Test)",
+          demosSub: "Every demo below runs directly in your browser — inspect quality before requesting work.",
+          d1Title: "Bilingual SaaS Landing Template (RTL + LTR)",
+          d1Desc: "Live Arabic/English direction toggle, EGP/SAR/USD currency switch, and responsive feature sections.",
+          d2Title: "WhatsApp QR Menu & Live Cart Builder",
+          d2Desc: "Add café items, see live EGP total calculation, and generate a formatted WhatsApp order link in one click.",
+          d3Title: "Passive Security Header Audit + ATS CV Showcase",
+          d3Desc: "Interactive CSP/HSTS scorecard with copyable server snippets plus a printable Before/After ATS CV comparison.",
+          openDemo: "Open Live Demo",
+          kitPrice: "EGP 150 • Instant Delivery",
+          kitTitle: "Ready Starter Kit ZIP (Bilingual RTL Landing + WhatsApp QR Menu)",
+          kitDesc: "Download clean zero-dependency HTML/CSS/JS source for both templates plus a bilingual guide to deploy free on GitHub Pages or Cloudflare Pages.",
+          kitCta: "Request Starter Kit (ZIP)",
+          orderTitle: "Build Your Free-Preview Brief",
+          orderSub: "Pick a service and fill in quick details, then copy the formatted brief to our contact channel.",
+          lblService: "Service / Starter Kit",
+          lblLink: "Site / Store URL or Quick Summary",
+          lblNotes: "Exact Outcome Needed",
+          lblPreview: "Ready-to-Send Request Brief",
+          copyBtn: "Copy Request Brief",
+          contactStatus: "Contact on Discord: @potato_chips_with_ketchup",
+          footerBrand: "© 2026 Wamda Studio — Live Preview Before You Pay",
+          footerPay: "Payment: InstaPay • Vodafone Cash (Instant settlement after preview approval)",
+          toggleBtn: "العربية (RTL)",
+          copiedMsg: "Request brief copied to clipboard!"
+        }
+      };
+
+      const htmlEl = document.documentElement;
+      const toggleBtn = document.getElementById("langToggle");
+      const serviceSelect = document.getElementById("serviceSelect");
+      const targetLink = document.getElementById("targetLink");
+      const notesInput = document.getElementById("notesInput");
+      const briefOutput = document.getElementById("briefOutput");
+      const copyBriefBtn = document.getElementById("copyBriefBtn");
+      const copyToast = document.getElementById("copyToast");
+
+      function updateBrief() {
+        const lang = htmlEl.getAttribute("lang") || "ar";
+        const svc = serviceSelect.value;
+        const link = targetLink.value.trim() || (lang === "ar" ? "غير محدد بعد" : "Not provided yet");
+        const notes = notesInput.value.trim() || (lang === "ar" ? "أرغب في معاينة حية قبل الدفع" : "Would like a live preview before payment");
+        briefOutput.textContent =
+          `[Wamda Studio Preview Request]\n` +
+          `Service: ${svc}\n` +
+          `Link/Topic: ${link}\n` +
+          `Goal: ${notes}\n` +
+          `Contact: Discord @potato_chips_with_ketchup\n` +
+          `Preferred Pay: InstaPay / Vodafone Cash (after preview approval)`;
+      }
+
+      function applyLang(lang) {
+        const dict = i18n[lang] || i18n.ar;
+        htmlEl.setAttribute("lang", lang);
+        htmlEl.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key]) el.textContent = dict[key];
+        });
+        toggleBtn.textContent = dict.toggleBtn;
+        try { localStorage.setItem("wamda_lang", lang); } catch (e) {}
+        updateBrief();
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        const next = htmlEl.getAttribute("lang") === "ar" ? "en" : "ar";
+        applyLang(next);
+      });
+
+      [serviceSelect, targetLink, notesInput].forEach((el) => {
+        el.addEventListener("input", updateBrief);
+        el.addEventListener("change", updateBrief);
+      });
+
+      copyBriefBtn.addEventListener("click", async () => {
+        const lang = htmlEl.getAttribute("lang") || "ar";
+        const msg = (i18n[lang] || i18n.ar).copiedMsg;
+        try {
+          await navigator.clipboard.writeText(briefOutput.textContent);
+        } catch (e) {
+          const range = document.createRange();
+          range.selectNodeContents(briefOutput);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+        copyToast.textContent = msg;
+        setTimeout(() => { copyToast.textContent = ""; }, 3000);
+      });
+
+      let saved = "ar";
+      try {
+        const s = localStorage.getItem("wamda_lang");
+        if (s === "en" || s === "ar") saved = s;
+      } catch (e) {}
+      applyLang(saved);
+    })();
+  </script>
+</body>
+</html>
