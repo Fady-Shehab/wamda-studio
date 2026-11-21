@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GSC للإنشاءات والتشطيبات — معاينة الواجهة وحاسبة عرض السعر | Wamda Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --surface: #ffffff;
+      --charcoal: #1c222b;
+      --slate: #2c3543;
+      --gold: #b8862d;
+      --gold-soft: rgba(184, 134, 45, 0.12);
+      --wa: #16a34a;
+      --text: #181c22;
+      --muted: #5a6473;
+      --border: rgba(24, 28, 34, 0.12);
+      --font-ar: 'Cairo', system-ui, -apple-system, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(850px 420px at 90% -5%, rgba(184, 134, 45, 0.11), transparent 58%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      line-height: 1.65;
+      padding-block-end: 3rem;
+    }
+    html[lang="en"] body { font-family: var(--font-en); }
+
+    .preview-ribbon {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(28, 34, 43, 0.95);
+      color: #f8fafc;
+      backdrop-filter: blur(10px);
+      border-block-end: 2px solid var(--gold);
+      padding: 0.65rem 1rem;
+    }
+    .ribbon-inner {
+      width: min(1140px, 100%);
+      margin-inline: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(184, 134, 45, 0.25);
+      color: #f6d38b;
+      font-weight: 700;
+      font-size: 0.74rem;
+    }
+    .ribbon-note { font-size: 0.82rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--charcoal);
+      padding: 0.52rem 0.95rem;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+    .btn-gold { background: var(--gold); color: #fff; border-color: transparent; }
+    .btn-wa { background: var(--wa); color: #fff; border-color: transparent; }
+    .btn-ribbon { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.22); }
+
+    .wrap { width: min(1140px, calc(100% - 1.5rem)); margin-inline: auto; }
+
+    header.nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      padding-block: 1.1rem;
+      border-block-end: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--charcoal), var(--gold));
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .brand-title { font-weight: 800; font-size: 1.05rem; color: var(--charcoal); }
+    .brand-sub { font-size: 0.78rem; color: var(--muted); }
+    .ltr-num { direction: ltr; unicode-bidi: embed; display: inline-block; font-weight: 700; }
+
+    .hero {
+      margin-block-start: 1.35rem;
+      background: linear-gradient(135deg, var(--charcoal), var(--slate));
+      color: #f8fafc;
+      border-radius: 22px;
+      padding: clamp(1.5rem, 3vw, 2.4rem);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(184, 134, 45, 0.22);
+      color: #f6d38b;
+      padding: 0.24rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-block-end: 0.7rem;
+    }
+    .hero h1 { margin: 0 0 0.7rem; font-size: clamp(1.45rem, 3vw, 2.2rem); line-height: 1.28; }
+    .hero p { margin: 0 0 1.15rem; color: #cbd5e1; font-size: 0.96rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .stat-box {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 1rem;
+    }
+    .stat-num { font-size: 1.7rem; font-weight: 800; color: #f6d38b; line-height: 1.15; }
+    .stat-lbl { font-size: 0.82rem; color: #e2e8f0; margin-block-start: 0.25rem; }
+    .stat-src {
+      display: inline-block;
+      margin-block-start: 0.35rem;
+      font-size: 0.68rem;
+      color: #cbd5e1;
+      background: rgba(255,255,255,0.08);
+      padding: 0.1rem 0.45rem;
+      border-radius: 6px;
+    }
+
+    .grid-2 {
+      margin-block-start: 1.5rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.4rem;
+      align-items: start;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.35rem;
+    }
+    .card h2 { margin: 0 0 0.35rem; font-size: 1.15rem; color: var(--charcoal); }
+    .card-sub { margin: 0 0 1rem; font-size: 0.86rem; color: var(--muted); }
+
+    .svc-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+    }
+    .svc-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem;
+    }
+    .svc-item h3 { margin: 0 0 0.25rem; font-size: 0.94rem; color: var(--charcoal); }
+    .svc-item p { margin: 0; font-size: 0.8rem; color: var(--muted); }
+
+    .info-strip {
+      margin-block-start: 1rem;
+      padding: 0.95rem;
+      border-radius: 14px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(184, 134, 45, 0.3);
+      font-size: 0.84rem;
+      color: var(--charcoal);
+    }
+
+    .est-box {
+      background: var(--surface);
+      border: 2px solid rgba(184, 134, 45, 0.38);
+      border-radius: 20px;
+      padding: 1.35rem;
+      position: sticky;
+      top: 4.5rem;
+    }
+    label.flbl { display: block; font-size: 0.82rem; font-weight: 700; color: var(--charcoal); margin-block: 0.65rem 0.28rem; }
+    .field {
+      width: 100%;
+      padding: 0.56rem 0.78rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.87rem;
+    }
+    .seg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+    }
+    .seg button {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      padding: 0.5rem 0.4rem;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.79rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .seg button.active {
+      background: var(--charcoal);
+      color: #f6d38b;
+      border-color: var(--charcoal);
+    }
+    .scope-pill {
+      margin-block-start: 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.82rem;
+    }
+    .msg-box {
+      margin-block-start: 0.75rem;
+      background: var(--charcoal);
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 0.85rem;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+    }
+    .toast { font-size: 0.78rem; color: var(--gold); font-weight: 700; text-align: center; min-height: 1.15rem; margin-block-start: 0.4rem; }
+
+    footer {
+      margin-block-start: 2rem;
+      padding-block-start: 1.2rem;
+      border-block-start: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--charcoal); font-weight: 700; text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .hero, .grid-2 { grid-template-columns: 1fr; }
+      .est-box { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-ribbon">
+    <div class="ribbon-inner">
+      <div class="ribbon-note">
+        <span class="pill" id="ribBadge">معاينة واجهة</span>
+        <span id="ribText">معاينة تفاعلية مجانية لـ GSC للإنشاءات (تصلح ظهور الأصفار 0 وتنسيق RTL + حاسبة واتساب)</span>
+      </div>
+      <div style="display:flex;gap:0.5rem;">
+        <button id="langBtn" class="btn btn-ribbon" type="button">English</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="nav">
+      <div class="brand">
+        <div class="mark" dir="ltr">GSC</div>
+        <div>
+          <div class="brand-title" id="brandName">شركة GSC للإنشاءات والتشطيبات</div>
+          <div class="brand-sub" id="brandSub">مدينة نصر، القاهرة • السبت – الخميس <span class="ltr-num" dir="ltr">9:00 – 17:00</span></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+        <a class="btn" href="tel:+201022333221"><span class="ltr-num" dir="ltr">+20 102 233 3221</span></a>
+        <a class="btn btn-gold" href="#quoteCard" id="topCta">اطلب معاينة وعرض سعر</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow" id="eyebrow">من الفكرة حتى المفتاح • دقة RTL/LTR متناسقة</span>
+        <h1 id="heroTitle">تصميم داخلي وإنشاءات وتشطيبات متكاملة تليق بمساحتك</h1>
+        <p id="heroDesc">
+          خبرة هندسية مدعومة بشهادات الماجستير والدكتوراه في التصميم الداخلي والإنشاءات وأنظمة المنازل الذكية والتخطيط الحضري في القاهرة.
+        </p>
+        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+          <a href="#quoteCard" class="btn btn-gold" id="heroCta">ابدأ تقدير نطاق التشطيب</a>
+          <a href="#servicesCard" class="btn" id="heroSecBtn">الخدمات الخمس</a>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" data-target="22" data-suffix="+">0+</div>
+          <div class="stat-lbl" id="st1Lbl">عاماً من الخبرة الهندسية</div>
+          <span class="stat-src" id="st1Src">موثق من نص الموقع الرسمي</span>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="210" data-suffix="+">0+</div>
+          <div class="stat-lbl" id="st2Lbl">مبنى متكامل تم بناؤه وتشطيبه</div>
+          <span class="stat-src" id="st2Src">في القاهرة — من نص الموقع</span>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="5" data-suffix="">0</div>
+          <div class="stat-lbl" id="st3Lbl">قطاعات هندسية متكاملة</div>
+          <span class="stat-src" id="st3Src">العدّاد يعمل بدون 0 الثابتة</span>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="100" data-suffix="%">0%</div>
+          <div class="stat-lbl" id="st4Lbl">معاينة وتنسيق قبل التنفيذ</div>
+          <span class="sample-src stat-src" id="st4Src">عينة قابلة لتعديل أرقامكم</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <div class="card" id="servicesCard">
+        <h2 id="svcHead">خدمات GSC للإنشاءات والتصميم الداخلي</h2>
+        <p class="card-sub" id="svcSub">إزالة تكرار العناوين وإصلاح اتجاه الأرقام والرموز (+20) في الواجهتين العربية والإنجليزية.</p>
+        <div id="svcList" class="svc-list"></div>
+
+        <div class="info-strip" id="addrBox">
+          <strong>📍 مقر الشركة (مدينة نصر):</strong> ٥ شارع حافظ رمضان، متفرع من شارع أحمد فخري، البرج (ب)، عمار بلازا، أمام مستشفى حسابو الدولي، القاهرة — هاتف: <span class="ltr-num" dir="ltr">+20 102 233 3221</span>
+        </div>
+      </div>
+
+      <aside class="est-box" id="quoteCard">
+        <h2 id="estHead" style="margin:0 0 0.25rem;font-size:1.15rem;color:var(--charcoal);">حاسبة نطاق التشطيب ورسالة واتساب</h2>
+        <p class="card-sub" id="estSub" style="margin-block-end:0.65rem;">حدد نوع الوحدة والمساحة والباقة ليجهز طلب المعاينة مباشرة لفريق المهندسين.</p>
+
+        <label class="flbl" id="lblType">نوع الوحدة</label>
+        <div class="seg" id="typeSeg">
+          <button type="button" data-type="Apartment" class="active">شقة</button>
+          <button type="button" data-type="Villa">فيلا / دوبلكس</button>
+          <button type="button" data-type="Commercial">تجاري / إداري</button>
+        </div>
+
+        <label class="flbl" for="areaInput" id="lblArea">المساحة التقريبية: <strong id="areaVal">180</strong> م²</label>
+        <input id="areaInput" class="field" type="range" min="60" max="800" step="10" value="180" style="padding:0.2rem 0;" />
+
+        <label class="flbl" id="lblTier">مستوى التشطيب المطلوب</label>
+        <div class="seg" id="tierSeg">
+          <button type="button" data-tier="Semi">نصف تشطيب</button>
+          <button type="button" data-tier="Super Lux" class="active">سوبر لوكس</button>
+          <button type="button" data-tier="Ultra Lux + Smart">ألترا + سمارت</button>
+        </div>
+
+        <label class="flbl" for="distSelect" id="lblDist">المنطقة</label>
+        <select id="distSelect" class="field">
+          <option value="مدينة نصر / مصر الجديدة (Nasr City / Heliopolis)">مدينة نصر / مصر الجديدة</option>
+          <option value="التجمع الخامس / القاهرة الجديدة (New Cairo)">التجمع الخامس / القاهرة الجديدة</option>
+          <option value="الشيخ زايد / 6 أكتوبر (Sheikh Zayed / 6th Oct)">الشيخ زايد / 6 أكتوبر</option>
+          <option value="المعادي / وسط القاهرة (Maadi / Cairo)">المعادي / القاهرة</option>
+        </select>
+
+        <div id="scopeSummary" class="scope-pill"></div>
+        <div id="msgBox" class="msg-box"></div>
+
+        <div style="display:grid;gap:0.55rem;margin-block-start:0.8rem;">
+          <a id="waBtn" class="btn btn-wa" target="_blank" rel="noopener" href="#quoteCard">إرسال الطلب عبر واتساب (معاينة على رقم GSC)</a>
+          <button id="copyBtn" class="btn" type="button">نسخ ملخص الطلب</button>
+        </div>
+        <div id="toast" class="toast"></div>
+      </aside>
+    </div>
+
+    <footer>
+      <span id="footText">Interactive Preview by Wamda Studio —</span>
+      <a href="https://fady-shehab.github.io/wamda-studio/" target="_blank" rel="noopener">https://fady-shehab.github.io/wamda-studio/</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const svcs = [
+        { ar: "التصميم الداخلي", arD: "بداية كل وحدة مميزة بتصميم داخلي مدروس عملياً وجمالياً.", en: "Interior Design", enD: "Distinct residential & commercial interiors built on clear function." },
+        { ar: "التشطيبات المتكاملة", arD: "من المحارة والتأسيس وحتى تسليم المفتاح بأعلى جودة.", en: "Turnkey Finishing", enD: "Complete finishing from first concept to final handover." },
+        { ar: "الإنشاءات والمباني", arD: "بناء متكامل تحت إشراف مهندسين معماريين وإنشائيين.", en: "Construction", enD: "Full structural construction supervised by experienced engineers." },
+        { ar: "أنظمة المنازل الذكية", arD: "أجهزة تحكم متطورة في الإضاءة والتكييف والأمان.", en: "Smart Home Systems", enD: "Integrated smart lighting, climate & home automation." },
+        { ar: "التخطيط الحضري", arD: "تخطيط عمراني وتصميم معماري احترافي.", en: "Urban Planning", enD: "Architectural & urban planning to international standards." }
+      ];
+
+      let lang = "ar";
+      let unitType = "Apartment";
+      let tier = "Super Lux";
+
+      function animateStats() {
+        document.querySelectorAll(".stat-num[data-target]").forEach((el) => {
+          const t = parseInt(el.getAttribute("data-target"), 10);
+          const suf = el.getAttribute("data-suffix") || "";
+          let step = 0;
+          const total = 20;
+          const id = setInterval(() => {
+            step++;
+            el.textContent = Math.round((t * step) / total) + suf;
+            if (step >= total) {
+              el.textContent = t + suf;
+              clearInterval(id);
+            }
+          }, 25);
+        });
+      }
+
+      function renderSvcs() {
+        const ar = lang === "ar";
+        const host = document.getElementById("svcList");
+        host.innerHTML = "";
+        svcs.forEach((s) => {
+          const d = document.createElement("div");
+          d.className = "svc-item";
+          d.innerHTML = `<h3>${ar ? s.ar : s.en}</h3><p>${ar ? s.arD : s.enD}</p>`;
+          host.appendChild(d);
+        });
+      }
+
+      function updateQuote() {
+        const ar = lang === "ar";
+        const area = parseInt(document.getElementById("areaInput").value, 10) || 180;
+        document.getElementById("areaVal").textContent = area;
+        const dist = document.getElementById("distSelect").value;
+
+        const scopeAr = tier === "Ultra Lux + Smart"
+          ? "يشمل: التصميم 3D + تأسيس كامل + خامات فاخرة + تأسيس سمارت هوم (يُحدَّد السعر النهائي بعد المعاينة المجانية)."
+          : tier === "Super Lux"
+            ? "يشمل: التصميم والتأسيس والدهانات والأرضيات والأبواب وتسليم مفتاح حسب المقايسة الهندسية لـ GSC."
+            : "يشمل: أعمال المباني والكهرباء والسباكة والمحارة والألوميتال التأسيسية.";
+        const scopeEn = tier === "Ultra Lux + Smart"
+          ? "Includes: 3D concept + MEP rough-in + premium finishes + Smart Home automation (exact BOQ priced after engineer visit)."
+          : tier === "Super Lux"
+            ? "Includes: full turnkey finishing, carpentry, porcelain/flooring & engineering supervision per GSC BOQ."
+            : "Includes: structural partitions, electrical/plumbing rough-in, plastering & window frames.";
+
+        document.getElementById("scopeSummary").textContent = ar ? scopeAr : scopeEn;
+
+        const typeLabel = ar
+          ? ({ Apartment: "شقة", Villa: "فيلا / دوبلكس", Commercial: "وحدة تجارية / إدارية" }[unitType] || unitType)
+          : unitType;
+        const tierLabel = ar
+          ? ({ Semi: "نصف تشطيب", "Super Lux": "سوبر لوكس", "Ultra Lux + Smart": "ألترا لوكس + سمارت هوم" }[tier] || tier)
+          : tier;
+
+        const msg = ar
+          ? `السلام عليكم شركة GSC للإنشاءات 🏗️\nأطلب معاينة ومقايسة تشطيب:\n• النوع: ${typeLabel}\n• المساحة: ${area} م²\n• الباقة: ${tierLabel}\n• المنطقة: ${dist}\n• النطاق المطلوب: ${scopeAr}`
+          : `Hello GSC Construction Team 🏗️\nRequesting an engineering visit & finishing quote:\n• Unit: ${typeLabel}\n• Area: ${area} sqm\n• Tier: ${tierLabel}\n• Area/District: ${dist}\n• Scope: ${scopeEn}`;
+
+        document.getElementById("msgBox").textContent = msg;
+        document.getElementById("waBtn").href = "https://wa.me/201022333221?text=" + encodeURIComponent(msg);
+      }
+
+      function applyLang(next) {
+        lang = next;
+        const ar = lang === "ar";
+        document.documentElement.lang = lang;
+        document.documentElement.dir = ar ? "rtl" : "ltr";
+
+        document.getElementById("langBtn").textContent = ar ? "English" : "العربية";
+        document.getElementById("ribBadge").textContent = ar ? "معاينة واجهة" : "UI Preview";
+        document.getElementById("ribText").textContent = ar
+          ? "معاينة تفاعلية مجانية لـ GSC للإنشاءات (تصلح ظهور الأصفار 0 وتنسيق RTL + حاسبة واتساب)"
+          : "Free interactive preview for GSC Construction (fixes homepage 0 stats, RTL alignment + WhatsApp quote builder)";
+        document.getElementById("brandName").textContent = ar ? "شركة GSC للإنشاءات والتشطيبات" : "GSC Construction & Interior Design";
+        document.getElementById("brandSub").innerHTML = ar
+          ? `مدينة نصر، القاهرة • السبت – الخميس <span class="ltr-num" dir="ltr">9:00 – 17:00</span>`
+          : `Nasr City, Cairo • Sat – Thu <span class="ltr-num" dir="ltr">9:00 – 17:00</span>`;
+        document.getElementById("topCta").textContent = ar ? "اطلب معاينة وعرض سعر" : "Request Visit & Quote";
+        document.getElementById("eyebrow").textContent = ar ? "من الفكرة حتى المفتاح • دقة RTL/LTR متناسقة" : "Turnkey Execution • Clean Symmetric RTL & LTR";
+        document.getElementById("heroTitle").textContent = ar
+          ? "تصميم داخلي وإنشاءات وتشطيبات متكاملة تليق بمساحتك"
+          : "Architectural Beauty, Construction & Turnkey Finishing in Cairo";
+        document.getElementById("heroDesc").textContent = ar
+          ? "خبرة هندسية مدعومة بشهادات الماجستير والدكتوراه في التصميم الداخلي والإنشاءات وأنظمة المنازل الذكية والتخطيط الحضري في القاهرة."
+          : "Academic and practical engineering expertise across interior design, construction, smart homes, and urban planning across Greater Cairo.";
+        document.getElementById("heroCta").textContent = ar ? "ابدأ تقدير نطاق التشطيب" : "Estimate Finishing Scope";
+        document.getElementById("heroSecBtn").textContent = ar ? "الخدمات الخمس" : "Our 5 Core Services";
+
+        document.getElementById("st1Lbl").textContent = ar ? "عاماً من الخبرة الهندسية" : "Years of Engineering Experience";
+        document.getElementById("st1Src").textContent = ar ? "موثق من نص الموقع الرسمي" : "Verified from GSC website copy";
+        document.getElementById("st2Lbl").textContent = ar ? "مبنى متكامل تم بناؤه وتشطيبه" : "Buildings Built & Finished in Cairo";
+        document.getElementById("st2Src").textContent = ar ? "في القاهرة — من نص الموقع" : "Verified from GSC website copy";
+        document.getElementById("st3Lbl").textContent = ar ? "قطاعات هندسية متكاملة" : "Core Engineering Disciplines";
+        document.getElementById("st3Src").textContent = ar ? "العدّاد يعمل بدون 0 الثابتة" : "Live JS counter (fixes 0 glitch)";
+        document.getElementById("st4Lbl").textContent = ar ? "معاينة وتنسيق قبل التنفيذ" : "BOQ Transparency Before Start";
+        document.getElementById("st4Src").textContent = ar ? "عينة قابلة لتعديل أرقامكم" : "Sample / Ready for GSC metrics";
+
+        document.getElementById("svcHead").textContent = ar ? "خدمات GSC للإنشاءات والتصميم الداخلي" : "GSC Construction & Finishing Services";
+        document.getElementById("svcSub").textContent = ar
+          ? "إزالة تكرار العناوين وإصلاح اتجاه الأرقام والرموز (+20) في الواجهتين العربية والإنجليزية."
+          : "Fixes mirrored RTL phone signs (+20), duplicate CTA labels, and responsive spacing.";
+        document.getElementById("addrBox").innerHTML = ar
+          ? `<strong>📍 مقر الشركة (مدينة نصر):</strong> ٥ شارع حافظ رمضان، متفرع من شارع أحمد فخري، البرج (ب)، عمار بلازا، أمام مستشفى حسابو الدولي، القاهرة — هاتف: <span class="ltr-num" dir="ltr">+20 102 233 3221</span>`
+          : `<strong>📍 Cairo HQ (Nasr City):</strong> 5 Hafez Ramadan St., off Ahmed Fakhry St., Tower B, Ammar Plaza (front of Hassabo Int'l Hospital), Cairo — Tel: <span class="ltr-num" dir="ltr">+20 102 233 3221</span>`;
+
+        document.getElementById("estHead").textContent = ar ? "حاسبة نطاق التشطيب ورسالة واتساب" : "Finishing Scope Estimator & WhatsApp Brief";
+        document.getElementById("estSub").textContent = ar
+          ? "حدد نوع الوحدة والمساحة والباقة ليجهز طلب المعاينة مباشرة لفريق المهندسين."
+          : "Pick unit type, area, and tier to format a ready WhatsApp engineering inquiry.";
+        document.getElementById("lblType").textContent = ar ? "نوع الوحدة" : "Unit Type";
+        document.getElementById("lblArea").innerHTML = ar
+          ? `المساحة التقريبية: <strong id="areaVal">${document.getElementById("areaInput").value}</strong> م²`
+          : `Approx. Area: <strong id="areaVal">${document.getElementById("areaInput").value}</strong> sqm`;
+        document.getElementById("lblTier").textContent = ar ? "مستوى التشطيب المطلوب" : "Finishing Tier";
+        document.getElementById("lblDist").textContent = ar ? "المنطقة" : "District";
+        document.getElementById("waBtn").textContent = ar
+          ? "معاينة إرسال واتساب (رقم GSC: +20 102 233 3221)"
+          : "Preview WhatsApp Brief (+20 102 233 3221 Demo)";
+        document.getElementById("copyBtn").textContent = ar ? "نسخ ملخص الطلب" : "Copy Brief";
+
+        const typeButtons = document.querySelectorAll("#typeSeg button");
+        const typeNames = ar ? ["شقة", "فيلا / دوبلكس", "تجاري / إداري"] : ["Apartment", "Villa / Duplex", "Commercial"];
+        typeButtons.forEach((b, idx) => { b.textContent = typeNames[idx]; });
+
+        const tierButtons = document.querySelectorAll("#tierSeg button");
+        const tierNames = ar ? ["نصف تشطيب", "سوبر لوكس", "ألترا + سمارت"] : ["Semi-Finished", "Super Lux", "Ultra + Smart"];
+        tierButtons.forEach((b, idx) => { b.textContent = tierNames[idx]; });
+
+        renderSvcs();
+        updateQuote();
+      }
+
+      document.getElementById("typeSeg").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-type]");
+        if (!b) return;
+        unitType = b.getAttribute("data-type");
+        document.querySelectorAll("#typeSeg button").forEach((x) => x.classList.toggle("active", x === b));
+        updateQuote();
+      });
+      document.getElementById("tierSeg").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-tier]");
+        if (!b) return;
+        tier = b.getAttribute("data-tier");
+        document.querySelectorAll("#tierSeg button").forEach((x) => x.classList.toggle("active", x === b));
+        updateQuote();
+      });
+      document.getElementById("areaInput").addEventListener("input", updateQuote);
+      document.getElementById("distSelect").addEventListener("change", updateQuote);
+      document.getElementById("langBtn").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+      document.getElementById("copyBtn").addEventListener("click", async () => {
+        const t = document.getElementById("toast");
+        try {
+          await navigator.clipboard.writeText(document.getElementById("msgBox").textContent);
+          t.textContent = lang === "ar" ? "تم نسخ ملخص الطلب بنجاح!" : "Brief copied to clipboard!";
+        } catch {
+          t.textContent = lang === "ar" ? "الملخص جاهز أعلاه" : "Brief ready above";
+        }
+      });
+
+      animateStats();
+      applyLang("ar");
+    })();
+  </script>
+</body>
+</html>

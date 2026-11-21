@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cairo Dental Centers (CDC) — Bilingual AR/EN Booking &amp; WhatsApp Preview | Wamda Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f8fa;
+      --surface: #ffffff;
+      --card: #f9fcfd;
+      --navy: #0c2340;
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-soft: rgba(13, 148, 136, 0.10);
+      --wa: #16a34a;
+      --text: #0f172a;
+      --muted: #52637a;
+      --border: rgba(12, 35, 64, 0.12);
+      --font-ar: 'Cairo', system-ui, -apple-system, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(900px 420px at 90% -5%, rgba(13, 148, 136, 0.12), transparent 60%),
+        radial-gradient(700px 360px at 5% 10%, rgba(12, 35, 64, 0.06), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      line-height: 1.65;
+      padding-block-end: 3rem;
+    }
+    html[lang="en"] body { font-family: var(--font-en); }
+
+    .preview-ribbon {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(12, 35, 64, 0.94);
+      color: #f8fafc;
+      backdrop-filter: blur(10px);
+      border-block-end: 2px solid var(--teal);
+      padding: 0.65rem 1rem;
+    }
+    .ribbon-inner {
+      width: min(1140px, 100%);
+      margin-inline: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .ribbon-note {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(13, 148, 136, 0.28);
+      color: #5eead4;
+      font-weight: 700;
+      font-size: 0.74rem;
+    }
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--navy);
+      padding: 0.5rem 0.95rem;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); color: #fff; border-color: transparent; }
+    .btn-teal:hover { background: var(--teal-dark); }
+    .btn-wa { background: var(--wa); color: #fff; border-color: transparent; }
+    .btn-ribbon { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.22); }
+
+    .wrap { width: min(1140px, calc(100% - 1.5rem)); margin-inline: auto; }
+
+    header.site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-block: 1.15rem;
+      border-block-end: 1px solid var(--border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+    }
+    .brand-title { font-weight: 800; font-size: 1.05rem; color: var(--navy); }
+    .brand-sub { font-size: 0.78rem; color: var(--muted); }
+
+    .hero {
+      margin-block-start: 1.4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: clamp(1.4rem, 3vw, 2.3rem);
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: 0 12px 32px rgba(12, 35, 64, 0.05);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-block-end: 0.75rem;
+    }
+    h1 {
+      margin: 0 0 0.7rem;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      line-height: 1.25;
+      color: var(--navy);
+    }
+    .hero-p { margin: 0 0 1.15rem; color: var(--muted); font-size: 0.98rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+    }
+    .stat-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+    }
+    .stat-lbl { font-size: 0.82rem; color: var(--muted); margin-block-start: 0.2rem; }
+    .sample-tag {
+      display: inline-block;
+      margin-block-start: 0.35rem;
+      font-size: 0.68rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 6px;
+      background: rgba(12, 35, 64, 0.07);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .main-grid {
+      margin-block-start: 1.5rem;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.4rem;
+      align-items: start;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.35rem;
+    }
+    .panel h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.15rem;
+      color: var(--navy);
+    }
+    .panel-sub { margin: 0 0 1rem; color: var(--muted); font-size: 0.86rem; }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.7rem;
+    }
+    .svc-btn {
+      text-align: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .svc-btn.active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+    }
+    .svc-title { font-weight: 800; font-size: 0.92rem; color: var(--navy); margin-block-end: 0.2rem; }
+    .svc-desc { font-size: 0.79rem; color: var(--muted); }
+
+    .branches {
+      margin-block-start: 1.15rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.75rem;
+    }
+    .branch-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem;
+    }
+    .branch-card.active {
+      border-color: var(--teal);
+      box-shadow: inset 0 0 0 1px var(--teal);
+    }
+    .branch-card h3 { margin: 0 0 0.25rem; font-size: 0.95rem; color: var(--navy); }
+    .branch-card p { margin: 0; font-size: 0.8rem; color: var(--muted); }
+    .phone-ltr { direction: ltr; unicode-bidi: embed; font-weight: 700; color: var(--teal-dark); display: inline-block; margin-block-start: 0.35rem; font-size: 0.84rem; }
+
+    .drawer {
+      background: var(--surface);
+      border: 2px solid rgba(13, 148, 136, 0.28);
+      border-radius: 20px;
+      padding: 1.35rem;
+      position: sticky;
+      top: 4.5rem;
+      box-shadow: 0 14px 36px rgba(13, 148, 136, 0.08);
+    }
+    label.flbl { display: block; font-size: 0.82rem; font-weight: 700; color: var(--navy); margin-block: 0.65rem 0.28rem; }
+    .field {
+      width: 100%;
+      padding: 0.58rem 0.78rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.87rem;
+    }
+    .preview-msg {
+      margin-block-start: 0.85rem;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 0.85rem;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      line-height: 1.55;
+    }
+    .drawer-actions {
+      display: grid;
+      gap: 0.55rem;
+      margin-block-start: 0.85rem;
+    }
+    .status-toast {
+      font-size: 0.78rem;
+      color: var(--teal-dark);
+      font-weight: 700;
+      min-height: 1.2rem;
+      text-align: center;
+    }
+
+    footer {
+      margin-block-start: 2rem;
+      padding-block-start: 1.2rem;
+      border-block-start: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--teal-dark); font-weight: 700; text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .hero, .main-grid { grid-template-columns: 1fr; }
+      .drawer { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-ribbon">
+    <div class="ribbon-inner">
+      <div class="ribbon-note">
+        <span class="pill" id="ribBadge">UI Preview</span>
+        <span id="ribText">معاينة تفاعلية مجانية لـ Cairo Dental Centers (تصلح مشكلة عدّاد 0 K+ وتضيف حجز واتساب ثنائي اللغة)</span>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button id="langBtn" class="btn btn-ribbon" type="button">English</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="site-nav">
+      <div class="brand">
+        <div class="logo-mark" dir="ltr">CDC</div>
+        <div>
+          <div class="brand-title" id="brandName">مراكز القاهرة لطب الأسنان — Cairo Dental Centers</div>
+          <div class="brand-sub" id="brandSub">المهندسين • الشيخ زايد | معمل رقمي متكامل 3Shape TRIOS</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+        <a class="btn" href="tel:+201118369105" dir="ltr">+20 111 836 9105</a>
+        <a class="btn btn-teal" href="#waDrawer" id="topBookBtn">اطلب موعد عبر واتساب</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow" id="eyebrow">معاينة تطوير الواجهة • عربي RTL + إنجليزي</span>
+        <h1 id="heroTitle">ابتسامتك بأعلى دقة — استلم التاج الرقمي في 45 دقيقة فقط</h1>
+        <p class="hero-p" id="heroDesc">
+          رعاية شاملة في جميع تخصصات طب الأسنان على إرث أ.د. طارق حسني، مدعومة بالمسح الرقمي 3Shape TRIOS ومطحنة DC1 داخل المعمل في المهندسين والشيخ زايد.
+        </p>
+        <div class="hero-actions">
+          <a href="#waDrawer" class="btn btn-wa" id="heroCta">تجهيز رسالة الحجز الآن</a>
+          <a href="#servicesSec" class="btn" id="heroSecBtn">استكشف التخصصات</a>
+        </div>
+      </div>
+
+      <div class="stats-grid" aria-label="Fixed Clinic Counters">
+        <div class="stat-card">
+          <div class="stat-val" data-target="4.9" data-decimal="1" data-suffix=" ★">0.0 ★</div>
+          <div class="stat-lbl" id="st1Lbl">تقييم المرضى على الموقع</div>
+          <span class="sample-tag" id="st1Tag">من الموقع الرسمي (7.8k مراجعة)</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" data-target="45" data-suffix="m">0m</div>
+          <div class="stat-lbl" id="st2Lbl">تجهيز وتركيب الكراون الرقمي</div>
+          <span class="sample-tag" id="st2Tag">3Shape TRIOS + DC1 Lab</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" data-target="10" data-suffix="+">0+</div>
+          <div class="stat-lbl" id="st3Lbl">تخصصات علاجية وتجميلية متكاملة</div>
+          <span class="sample-tag" id="st3Tag">العدّاد يعمل بدون 0 K+</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" data-target="2" data-suffix="">0</div>
+          <div class="stat-lbl" id="st4Lbl">فروع في القاهرة الكبرى والجيزة</div>
+          <span class="sample-tag" id="st4Tag">عينة قابلة لتعديل أي أرقام</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="main-grid">
+      <div>
+        <section class="panel" id="servicesSec">
+          <h2 id="svcHead">١. اختر التخصص المطلوب للحجز</h2>
+          <p class="panel-sub" id="svcSub">اضغط على أي خدمة ليتم إدراجها تلقائياً في رسالة حجز الواتساب.</p>
+          <div id="svcGrid" class="service-grid"></div>
+
+          <h2 style="margin-block-start:1.35rem;" id="brHead">٢. اختر أقرب فرع لـ CDC</h2>
+          <p class="panel-sub" id="brSub">عناوين وأرقام الفروع الحقيقية من موقع dentalcdc.com.</p>
+          <div id="brGrid" class="branches"></div>
+        </section>
+      </div>
+
+      <aside class="drawer" id="waDrawer">
+        <h2 id="drTitle" style="margin:0 0 0.25rem;font-size:1.15rem;color:var(--navy);">نموذج الحجز المباشر عبر واتساب</h2>
+        <p class="panel-sub" id="drSub" style="margin-block-end:0.6rem;">يعالج مشكلة «No WhatsApp Number Found!» ويجهز بيانات المريض في ثوانٍ.</p>
+
+        <label class="flbl" for="patientName" id="lblName">اسم المريض</label>
+        <input id="patientName" class="field" type="text" placeholder="مثال: أحمد محمود" />
+
+        <label class="flbl" for="daySelect" id="lblDay">اليوم / الفترة المفضلة</label>
+        <select id="daySelect" class="field">
+          <option value="أقرب موعد متاح (مسائي) / Nearest Evening Slot">أقرب موعد متاح (مسائي) — Nearest Evening Slot</option>
+          <option value="أقرب موعد متاح (صباحي) / Nearest Morning Slot">أقرب موعد متاح (صباحي) — Nearest Morning Slot</option>
+          <option value="استشارة طوارئ اليوم / Same-Day Consultation">استشارة عاجلة اليوم — Same-Day Consultation</option>
+        </select>
+
+        <label class="flbl" for="noteInput" id="lblNote">ملاحظة إضافية (اختياري)</label>
+        <input id="noteInput" class="field" type="text" placeholder="مثال: أرغب في فحص زراعة أو تقويم" />
+
+        <div id="msgBox" class="preview-msg"></div>
+
+        <div class="drawer-actions">
+          <a id="waLink" class="btn btn-wa" target="_blank" rel="noopener" href="#waDrawer">فتح معاينة واتساب (اربط رقم واتساب العيادة الرسمي)</a>
+          <button id="copyBtn" class="btn" type="button">نسخ نص الحجز</button>
+          <div id="copyStatus" class="status-toast"></div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <span id="footText">Interactive Preview by Wamda Studio —</span>
+      <a href="https://fady-shehab.github.io/wamda-studio/" target="_blank" rel="noopener">https://fady-shehab.github.io/wamda-studio/</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const services = [
+        { id: "implants", ar: "زراعة الأسنان", arD: "تعويض الأسنان المفقودة بدقة وتخطيط رقمي.", en: "Dental Implants", enD: "Precision digital implant restoration." },
+        { id: "crowns", ar: "التركيبات والكراون (45 دقيقة)", arD: "مسح 3Shape TRIOS ومطحنة DC1 داخل المعمل.", en: "45-Min Crowns & Bridges", enD: "In-house 3Shape TRIOS & DC1 digital milling." },
+        { id: "endo", ar: "علاج الجذور (حشو العصب)", arD: "جلسات علاج جذور دقيقة ومريحة.", en: "Root Canal Treatments", enD: "Precision painless endodontic care." },
+        { id: "ortho", ar: "تقويم الأسنان", arD: "حلول تقويم متطورة للبالغين والأطفال.", en: "Orthodontics", enD: "Alignment plans tailored for your smile." },
+        { id: "cosmetic", ar: "تجميل الأسنان والليزر", arD: "تجميل الابتسامة وعلاجات الليزر الحديثة.", en: "Cosmetic & Laser Dentistry", enD: "Aesthetic enhancement with laser precision." },
+        { id: "pediatric", ar: "طب أسنان الأطفال والجراحة", arD: "رعاية خاصة للأطفال وجراحة الفم واللثة.", en: "Pediatric & Periodontal Care", enD: "Dedicated child care, gum care & oral surgery." }
+      ];
+
+      const branches = [
+        {
+          id: "mohandeseen",
+          ar: "فرع المهندسين",
+          en: "Mohandeseen Branch",
+          arAddr: "28 جامعة الدول العربية (بجوار سوبر ماركت مترو)، المهندسين، الجيزة",
+          enAddr: "28 Gameat Al Deal Al Arabeya (Nearby METRO), Mohandeseen, Giza",
+          phones: "+20 2 33468888 • +20 1039991193",
+          waDigits: "201039991193"
+        },
+        {
+          id: "zayed",
+          ar: "فرع الشيخ زايد",
+          en: "Sheikh Zayed Branch",
+          arAddr: "الجزيرة بلازا - برج ٢ - وحدة ٢٠٤، الشيخ زايد، الجيزة",
+          enAddr: "Gueizra Plaza - Tower 2 - Unit 204, Sheikh Zayed, Giza",
+          phones: "+20 2 38514666 • +20 1118369105",
+          waDigits: "201118369105"
+        }
+      ];
+
+      let lang = "ar";
+      let selectedService = services[0].id;
+      let selectedBranch = branches[1].id;
+
+      function animateCounters() {
+        document.querySelectorAll(".stat-val[data-target]").forEach((el) => {
+          const target = parseFloat(el.getAttribute("data-target"));
+          const dec = parseInt(el.getAttribute("data-decimal") || "0", 10);
+          const suffix = el.getAttribute("data-suffix") || "";
+          let step = 0;
+          const totalSteps = 18;
+          const timer = setInterval(() => {
+            step++;
+            const val = (target * step) / totalSteps;
+            el.textContent = (dec > 0 ? val.toFixed(dec) : Math.round(val)) + suffix;
+            if (step >= totalSteps) {
+              el.textContent = (dec > 0 ? target.toFixed(dec) : target) + suffix;
+              clearInterval(timer);
+            }
+          }, 24);
+        });
+      }
+
+      function renderCards() {
+        const ar = lang === "ar";
+        const svcGrid = document.getElementById("svcGrid");
+        svcGrid.innerHTML = "";
+        services.forEach((s) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "svc-btn" + (selectedService === s.id ? " active" : "");
+          btn.setAttribute("data-svc", s.id);
+          btn.innerHTML = `<div class="svc-title">${ar ? s.ar : s.en}</div><div class="svc-desc">${ar ? s.arD : s.enD}</div>`;
+          svcGrid.appendChild(btn);
+        });
+
+        const brGrid = document.getElementById("brGrid");
+        brGrid.innerHTML = "";
+        branches.forEach((b) => {
+          const card = document.createElement("div");
+          card.className = "branch-card" + (selectedBranch === b.id ? " active" : "");
+          card.style.cursor = "pointer";
+          card.setAttribute("data-br", b.id);
+          card.innerHTML = `
+            <h3>${ar ? b.ar : b.en}</h3>
+            <p>${ar ? b.arAddr : b.enAddr}</p>
+            <span class="phone-ltr" dir="ltr">${b.phones}</span>
+          `;
+          brGrid.appendChild(card);
+        });
+      }
+
+      function updateMessage() {
+        const ar = lang === "ar";
+        const svc = services.find((s) => s.id === selectedService) || services[0];
+        const br = branches.find((b) => b.id === selectedBranch) || branches[0];
+        const name = (document.getElementById("patientName").value || "").trim() || (ar ? "مريض جديد (معاينة)" : "New Patient (Preview)");
+        const slot = document.getElementById("daySelect").value;
+        const note = (document.getElementById("noteInput").value || "").trim() || "-";
+
+        const msg = ar
+          ? `مرحباً Cairo Dental Centers (CDC) 👋\nأرغب في حجز موعد:\n• الاسم: ${name}\n• الفرع: ${br.ar}\n• التخصص: ${svc.ar}\n• الموعد المفضل: ${slot}\n• ملاحظات: ${note}`
+          : `Hello Cairo Dental Centers (CDC) 👋\nI would like to request an appointment:\n• Patient: ${name}\n• Branch: ${br.en}\n• Treatment: ${svc.en}\n• Preferred Slot: ${slot}\n• Notes: ${note}`;
+
+        document.getElementById("msgBox").textContent = msg;
+        document.getElementById("waLink").href = `https://wa.me/${br.waDigits}?text=` + encodeURIComponent(msg);
+      }
+
+      function applyLang(next) {
+        lang = next;
+        const ar = lang === "ar";
+        document.documentElement.lang = lang;
+        document.documentElement.dir = ar ? "rtl" : "ltr";
+
+        document.getElementById("langBtn").textContent = ar ? "English" : "العربية";
+        document.getElementById("ribBadge").textContent = ar ? "معاينة واجهة" : "UI Preview";
+        document.getElementById("ribText").textContent = ar
+          ? "معاينة تفاعلية مجانية لـ Cairo Dental Centers (تصلح مشكلة عدّاد 0 K+ وتضيف حجز واتساب ثنائي اللغة)"
+          : "Free interactive UI preview for Cairo Dental Centers (fixes 0 K+ counter & adds bilingual WhatsApp booking)";
+        document.getElementById("brandName").textContent = ar
+          ? "مراكز القاهرة لطب الأسنان — Cairo Dental Centers"
+          : "Cairo Dental Centers (CDC)";
+        document.getElementById("brandSub").textContent = ar
+          ? "المهندسين • الشيخ زايد | معمل رقمي متكامل 3Shape TRIOS"
+          : "Mohandeseen • Sheikh Zayed | In-House 3Shape TRIOS Digital Lab";
+        document.getElementById("topBookBtn").textContent = ar ? "اطلب موعد عبر واتساب" : "WhatsApp Booking";
+        document.getElementById("eyebrow").textContent = ar ? "معاينة تطوير الواجهة • عربي RTL + إنجليزي" : "Interactive Bilingual Upgrade Preview • AR RTL & EN";
+        document.getElementById("heroTitle").textContent = ar
+          ? "ابتسامتك بأعلى دقة — استلم التاج الرقمي في 45 دقيقة فقط"
+          : "Precision Dental Care — Personalized Digital Crowns in ~45 Minutes";
+        document.getElementById("heroDesc").textContent = ar
+          ? "رعاية شاملة في جميع تخصصات طب الأسنان على إرث أ.د. طارق حسني، مدعومة بالمسح الرقمي 3Shape TRIOS ومطحنة DC1 داخل المعمل في المهندسين والشيخ زايد."
+          : "Comprehensive dentistry inspired by Prof. Dr. Tarek Hosny's legacy, backed by 3Shape TRIOS intraoral scanning and in-house DC1 milling across Mohandeseen & Sheikh Zayed.";
+        document.getElementById("heroCta").textContent = ar ? "تجهيز رسالة الحجز الآن" : "Build WhatsApp Request";
+        document.getElementById("heroSecBtn").textContent = ar ? "استكشف التخصصات" : "Explore Treatments";
+
+        document.getElementById("st1Lbl").textContent = ar ? "تقييم المرضى على الموقع" : "Patient Rating on Site";
+        document.getElementById("st1Tag").textContent = ar ? "من الموقع الرسمي (7.8k مراجعة)" : "Verified from CDC site (7.8k reviews)";
+        document.getElementById("st2Lbl").textContent = ar ? "تجهيز وتركيب الكراون الرقمي" : "In-House Digital Crown Turnaround";
+        document.getElementById("st2Tag").textContent = "3Shape TRIOS + DC1 Lab";
+        document.getElementById("st3Lbl").textContent = ar ? "تخصصات علاجية وتجميلية متكاملة" : "Core Dental & Surgical Specialties";
+        document.getElementById("st3Tag").textContent = ar ? "عدّاد يعمل بسلاسة (بديل 0 K+)" : "Working JS counter (fixes 0 K+ glitch)";
+        document.getElementById("st4Lbl").textContent = ar ? "فروع في القاهرة الكبرى والجيزة" : "Giza & Cairo Clinic Branches";
+        document.getElementById("st4Tag").textContent = ar ? "قابل للتعديل بأي أرقام رسمية" : "Sample / Ready for CDC exact stats";
+
+        document.getElementById("svcHead").textContent = ar ? "١. اختر التخصص المطلوب للحجز" : "1. Select Treatment for Booking";
+        document.getElementById("svcSub").textContent = ar ? "اضغط على أي خدمة ليتم إدراجها تلقائياً في رسالة حجز الواتساب." : "Tap any service below to populate your WhatsApp booking request.";
+        document.getElementById("brHead").textContent = ar ? "٢. اختر أقرب فرع لـ CDC" : "2. Choose Preferred CDC Branch";
+        document.getElementById("brSub").textContent = ar ? "عناوين وأرقام الفروع الحقيقية من موقع dentalcdc.com." : "Real branch locations & contact lines from dentalcdc.com.";
+
+        document.getElementById("drTitle").textContent = ar ? "نموذج الحجز المباشر عبر واتساب" : "Direct WhatsApp Appointment Builder";
+        document.getElementById("drSub").textContent = ar
+          ? "يعالج مشكلة «No WhatsApp Number Found!» ويجهز بيانات المريض في ثوانٍ."
+          : "Replaces broken WhatsApp footer widget with an instant bilingual booking drawer.";
+        document.getElementById("lblName").textContent = ar ? "اسم المريض" : "Patient Name";
+        document.getElementById("patientName").placeholder = ar ? "مثال: أحمد محمود" : "e.g., Ahmed Mahmoud";
+        document.getElementById("lblDay").textContent = ar ? "اليوم / الفترة المفضلة" : "Preferred Slot";
+        document.getElementById("lblNote").textContent = ar ? "ملاحظة إضافية (اختياري)" : "Additional Note (optional)";
+        document.getElementById("noteInput").placeholder = ar ? "مثال: أرغب في فحص زراعة أو تقويم" : "e.g., Implant consultation or whitening";
+        document.getElementById("waLink").textContent = ar
+          ? "معاينة فتح واتساب (يُربط برقم واتساب العيادة الرسمي)"
+          : "Preview WhatsApp Launch (Connect Clinic WhatsApp Number)";
+        document.getElementById("copyBtn").textContent = ar ? "نسخ نص الحجز" : "Copy Booking Message";
+        document.getElementById("footText").textContent = "Interactive Preview by Wamda Studio — ";
+
+        renderCards();
+        updateMessage();
+      }
+
+      document.getElementById("svcGrid").addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-svc]");
+        if (!btn) return;
+        selectedService = btn.getAttribute("data-svc");
+        renderCards();
+        updateMessage();
+      });
+
+      document.getElementById("brGrid").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-br]");
+        if (!card) return;
+        selectedBranch = card.getAttribute("data-br");
+        renderCards();
+        updateMessage();
+      });
+
+      ["patientName", "noteInput"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateMessage);
+      });
+      document.getElementById("daySelect").addEventListener("change", updateMessage);
+      document.getElementById("langBtn").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+
+      document.getElementById("copyBtn").addEventListener("click", async () => {
+        const txt = document.getElementById("msgBox").textContent;
+        const st = document.getElementById("copyStatus");
+        try {
+          await navigator.clipboard.writeText(txt);
+          st.textContent = lang === "ar" ? "تم نسخ رسالة الحجز بنجاح!" : "Booking message copied!";
+        } catch {
+          st.textContent = lang === "ar" ? "تم تجهيز النص في الصندوق أعلاه" : "Message ready above to copy";
+        }
+      });
+
+      animateCounters();
+      applyLang("ar");
+    })();
+  </script>
+</body>
+</html>
