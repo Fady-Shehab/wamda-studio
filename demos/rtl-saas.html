@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سند SaaS | Sanad Bilingual RTL + EN Starter Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c121c;
+      --surface: #131c2b;
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --brand: #38bdf8;
+      --brand-2: #10b981;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(800px 380px at 80% 0%, rgba(56, 189, 248, 0.15), transparent 60%),
+        radial-gradient(650px 320px at 15% 5%, rgba(16, 185, 129, 0.12), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      line-height: 1.65;
+    }
+    html[lang="en"] body { font-family: var(--font-en); }
+    .wrap { width: min(1080px, calc(100% - 2rem)); margin-inline: auto; }
+    header {
+      border-block-end: 1px solid var(--border);
+      background: rgba(12, 18, 28, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky; top: 0; z-index: 20;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding-block: 0.85rem;
+    }
+    .logo { font-weight: 800; font-size: 1.08rem; display: flex; align-items: center; gap: 0.55rem; }
+    .logo-dot {
+      width: 12px; height: 12px; border-radius: 4px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+    .nav-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 0.55rem 0.95rem;
+      border-radius: 9px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #03151d; border-color: transparent;
+    }
+    .hero { padding-block: 3.8rem 2.6rem; text-align: center; }
+    .pill {
+      display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #7dd3fc; font-size: 0.84rem; font-weight: 700; margin-block-end: 1rem;
+    }
+    h1 { margin: 0 auto 1rem; max-width: 19ch; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.2; }
+    .lead { margin: 0 auto 1.6rem; max-width: 58ch; color: var(--muted); font-size: 1.04rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 2rem; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.3rem; text-align: start;
+    }
+    .card h3 { margin: 0 0 0.45rem; font-size: 1.05rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .arrow-icon { display: inline-block; transition: transform 0.15s ease; }
+    html[dir="rtl"] .arrow-icon { transform: scaleX(-1); }
+
+    /* Pricing Bar */
+    .pricing-head {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-block: 2.5rem 1.2rem;
+    }
+    .controls { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    .seg {
+      display: inline-flex; padding: 3px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .seg button {
+      border: 0; background: transparent; color: var(--muted);
+      padding: 0.4rem 0.75rem; border-radius: 7px; font-family: inherit;
+      font-weight: 700; font-size: 0.82rem; cursor: pointer;
+    }
+    .seg button.active { background: var(--brand); color: #03151d; }
+    .price-num { font-size: 1.9rem; font-weight: 800; margin-block: 0.5rem; }
+    .faq-list { display: grid; gap: 0.75rem; margin-block: 1.5rem 3rem; }
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; background: transparent; border: 0; color: var(--text);
+      padding: 1rem 1.2rem; font-family: inherit; font-weight: 700; font-size: 0.96rem;
+      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+      text-align: start;
+    }
+    .faq-a { padding: 0 1.2rem 1rem; color: var(--muted); font-size: 0.9rem; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    @media (max-width: 820px) { .grid-3 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span data-k="brand">سند كلاود — Sanad</span>
+      </div>
+      <div class="nav-right">
+        <a class="btn" href="../index.html" data-k="backStudio">عودة إلى ومضة ستوديو</a>
+        <button id="toggleLang" class="btn btn-primary" type="button">Switch to English (LTR)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="pill" data-k="pill">Demo 01 • قالب ثنائي اللغة جاهز للإنتاج (RTL + LTR)</span>
+      <h1 data-k="h1">أطلق منتجك الرقمي بالعربية والإنجليزية بدون كسر في التصميم</h1>
+      <p class="lead" data-k="lead">نموذج صفحة هبوط متكامل يعتمد على خصائص CSS المنطقية، خطوط عربية متوازنة، وتبديل فوري للاتجاه والعملات يناسب الأسواق المصرية والخليجية والعالمية.</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#pricing" class="btn btn-primary">
+          <span data-k="cta1">استعرض الباقات</span>
+          <span class="arrow-icon" aria-hidden="true">→</span>
+        </a>
+        <a href="#faq" class="btn" data-k="cta2">الأسئلة الشائعة</a>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3 data-k="f1t">تبديل RTL / LTR حقيقي</h3>
+          <p data-k="f1d">الهوامش والأيقونات الاتجاهية تنقلب تلقائياً باستخدام margin-inline و padding-inline.</p>
+        </article>
+        <article class="card">
+          <h3 data-k="f2t">دعم عملات مصر والخليج</h3>
+          <p data-k="f2d">تحويل لحظي للأسعار بين الجنيه المصري (EGP) والريال السعودي (SAR) والدولار (USD).</p>
+        </article>
+        <article class="card">
+          <h3 data-k="f3t">سرعة تحميل فائقة</h3>
+          <p data-k="f3d">ملف واحد خفيف بدون تبعيات معقدة، مثالي لصفحات الهبوط السريعة على GitHub و Vercel.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="pricing-head">
+        <div>
+          <h2 style="margin:0;" data-k="pTitle">خطط أسعار مرنة</h2>
+          <p style="margin:0.2rem 0 0;color:var(--muted);font-size:0.92rem;" data-k="pSub">جرّب التبديل بين الدفع الشهري والسنوي أو تغيير العملة مباشرة.</p>
+        </div>
+        <div class="controls">
+          <div class="seg" role="group" aria-label="Billing cycle">
+            <button type="button" data-cycle="monthly" class="active" data-k="monthly">شهري</button>
+            <button type="button" data-cycle="yearly" data-k="yearly">سنوي (-20%)</button>
+          </div>
+          <div class="seg" role="group" aria-label="Currency">
+            <button type="button" data-curr="EGP" class="active">EGP</button>
+            <button type="button" data-curr="SAR">SAR</button>
+            <button type="button" data-curr="USD">USD</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3 data-k="t1">البداية — Starter</h3>
+          <div class="price-num" data-base-usd="9">$9</div>
+          <p data-k="t1d">مثالي للمشاريع الناشئة وصفحة هبوط واحدة مع دعم كامل للغتين.</p>
+        </article>
+        <article class="card" style="border-color:rgba(16,185,129,0.5);">
+          <h3 data-k="t2">النمو — Pro</h3>
+          <div class="price-num" data-base-usd="29">$29</div>
+          <p data-k="t2d">تشمل تكامل بوابات الدفع، صفحات فرعية، وتنبيهات الأداء.</p>
+        </article>
+        <article class="card">
+          <h3 data-k="t3">الشركات — Scale</h3>
+          <div class="price-num" data-base-usd="79">$79</div>
+          <p data-k="t3d">حسابات فريق غير محدودة وأولوية الدعم الفني.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2 data-k="faqTitle">الأسئلة الشائعة</h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q" type="button">
+            <span data-k="q1">هل يمكن تخصيص الألوان والخطوط بسهولة؟</span>
+            <span>+</span>
+          </button>
+          <div class="faq-a" data-k="a1">نعم، كل الألوان والخطوط معرّفة داخل متغيرات CSS في أعلى الملف لتغيير الهوية في ثوانٍ.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-k="q2">هل يعمل القالب بشكل ممتاز مع متاجر سلة وزد وصفحات React؟</span>
+            <span>+</span>
+          </button>
+          <div class="faq-a" data-k="a2">بالتأكيد، البنية نظيفة ويمكن تحويلها بسهولة إلى مكونات React / Next.js أو دمجها كصفحة هبوط مستقلة.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const copy = {
+        ar: {
+          brand: "سند كلاود — Sanad",
+          backStudio: "عودة إلى ومضة ستوديو",
+          toggle: "Switch to English (LTR)",
+          pill: "Demo 01 • قالب ثنائي اللغة جاهز للإنتاج (RTL + LTR)",
+          h1: "أطلق منتجك الرقمي بالعربية والإنجليزية بدون كسر في التصميم",
+          lead: "نموذج صفحة هبوط متكامل يعتمد على خصائص CSS المنطقية، خطوط عربية متوازنة، وتبديل فوري للاتجاه والعملات يناسب الأسواق المصرية والخليجية والعالمية.",
+          cta1: "استعرض الباقات",
+          cta2: "الأسئلة الشائعة",
+          f1t: "تبديل RTL / LTR حقيقي",
+          f1d: "الهوامش والأيقونات الاتجاهية تنقلب تلقائياً باستخدام margin-inline و padding-inline.",
+          f2t: "دعم عملات مصر والخليج",
+          f2d: "تحويل لحظي للأسعار بين الجنيه المصري (EGP) والريال السعودي (SAR) والدولار (USD).",
+          f3t: "سرعة تحميل فائقة",
+          f3d: "ملف واحد خفيف بدون تبعيات معقدة، مثالي لصفحات الهبوط السريعة على GitHub و Vercel.",
+          pTitle: "خطط أسعار مرنة",
+          pSub: "جرّب التبديل بين الدفع الشهري والسنوي أو تغيير العملة مباشرة.",
+          monthly: "شهري",
+          yearly: "سنوي (-20%)",
+          t1: "البداية — Starter",
+          t1d: "مثالي للمشاريع الناشئة وصفحة هبوط واحدة مع دعم كامل للغتين.",
+          t2: "النمو — Pro",
+          t2d: "تشمل تكامل بوابات الدفع، صفحات فرعية، وتنبيهات الأداء.",
+          t3: "الشركات — Scale",
+          t3d: "حسابات فريق غير محدودة وأولوية الدعم الفني.",
+          faqTitle: "الأسئلة الشائعة",
+          q1: "هل يمكن تخصيص الألوان والخطوط بسهولة؟",
+          a1: "نعم، كل الألوان والخطوط معرّفة داخل متغيرات CSS في أعلى الملف لتغيير الهوية في ثوانٍ.",
+          q2: "هل يعمل القالب بشكل ممتاز مع متاجر سلة وزد وصفحات React؟",
+          a2: "بالتأكيد، البنية نظيفة ويمكن تحويلها بسهولة إلى مكونات React / Next.js أو دمجها كصفحة هبوط مستقلة."
+        },
+        en: {
+          brand: "Sanad Cloud — سند",
+          backStudio: "Back to Wamda Studio",
+          toggle: "التبديل للعربية (RTL)",
+          pill: "Demo 01 • Production-Ready Bilingual Template (RTL + LTR)",
+          h1: "Launch Your SaaS in Arabic & English Without Breaking Layout",
+          lead: "A complete bilingual landing template powered by CSS logical properties, balanced Cairo/Jakarta typography, and instant direction + currency switching.",
+          cta1: "Explore Plans",
+          cta2: "Read FAQ",
+          f1t: "True RTL / LTR Mirroring",
+          f1d: "Spacing and directional icons flip seamlessly using margin-inline and padding-inline.",
+          f2t: "Egypt, GCC & Global Currencies",
+          f2d: "Instant live pricing toggle across EGP, SAR, and USD.",
+          f3t: "Zero-Bloat Performance",
+          f3d: "Single lightweight file ready for free deployment on GitHub Pages, Vercel, or Cloudflare.",
+          pTitle: "Flexible Pricing",
+          pSub: "Test monthly vs. annual billing and multi-currency switching live.",
+          monthly: "Monthly",
+          yearly: "Yearly (-20%)",
+          t1: "Starter",
+          t1d: "Ideal for MVPs and single bilingual product landing pages.",
+          t2: "Pro",
+          t2d: "Includes payment integration sections, subpages, and analytics hooks.",
+          t3: "Scale",
+          t3d: "Unlimited team seats and priority onboarding.",
+          faqTitle: "Frequently Asked Questions",
+          q1: "Can colors and fonts be customized quickly?",
+          a1: "Yes, every color and font token sits inside CSS variables at the top of the file.",
+          q2: "Can this integrate into Next.js, Salla, or Zid storefronts?",
+          a2: "Yes—clean semantic HTML/CSS sections adapt straight into React/Next.js components or standalone landing pages."
+        }
+      };
+
+      const rates = { EGP: { mul: 50, sym: " ج.م", enSym: "EGP " }, SAR: { mul: 3.75, sym: " ر.س", enSym: "SAR " }, USD: { mul: 1, sym: "$", enSym: "$" } };
+      let lang = "ar", cycle = "monthly", curr = "EGP";
+
+      function renderPrices() {
+        const discount = cycle === "yearly" ? 0.8 : 1;
+        const r = rates[curr];
+        document.querySelectorAll("[data-base-usd]").forEach((el) => {
+          const usd = Number(el.getAttribute("data-base-usd"));
+          const val = Math.round(usd * r.mul * discount);
+          if (curr === "USD") {
+            el.textContent = "$" + val + (lang === "ar" ? "/شهر" : "/mo");
+          } else {
+            el.textContent = (lang === "ar" ? val + r.sym + "/شهر" : r.enSym + val + "/mo");
+          }
+        });
+      }
+
+      function setLang(next) {
+        lang = next;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const dict = copy[lang];
+        document.querySelectorAll("[data-k]").forEach((el) => {
+          const k = el.getAttribute("data-k");
+          if (dict[k]) el.textContent = dict[k];
+        });
+        document.getElementById("toggleLang").textContent = dict.toggle;
+        renderPrices();
+      }
+
+      document.getElementById("toggleLang").addEventListener("click", () => setLang(lang === "ar" ? "en" : "ar"));
+      document.querySelectorAll("[data-cycle]").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll("[data-cycle]").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        cycle = b.getAttribute("data-cycle");
+        renderPrices();
+      }));
+      document.querySelectorAll("[data-curr]").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll("[data-curr]").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        curr = b.getAttribute("data-curr");
+        renderPrices();
+      }));
+      document.querySelectorAll(".faq-q").forEach((btn) => btn.addEventListener("click", () => {
+        btn.parentElement.classList.toggle("open");
+      }));
+
+      setLang("ar");
+    })();
+  </script>
+</body>
+</html>

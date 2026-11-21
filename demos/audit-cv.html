@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نموذج فحص الأمان والسرعة + سيرة ذاتية ATS | Wamda Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b1117; --card: #151f2c; --border: rgba(148, 163, 184, 0.2);
+      --text: #f1f5f9; --muted: #94a3b8; --ok: #10b981; --warn: #f59e0b; --bad: #ef4444;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-ar); line-height: 1.6; padding-block-end: 2.5rem; }
+    html[lang="en"] body { font-family: var(--font-en); }
+    .wrap { width: min(1040px, calc(100% - 1.5rem)); margin-inline: auto; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding-block: 1rem; border-block-end: 1px solid var(--border); gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text);
+      padding: 0.55rem 0.95rem; border-radius: 9px; font-family: inherit; font-weight: 700;
+      font-size: 0.86rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn.active, .btn-ok { background: var(--ok); color: #03150e; border-color: transparent; }
+    .tabs { display: flex; gap: 0.6rem; margin-block: 1.4rem; flex-wrap: wrap; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; }
+    .score-row { display: flex; justify-content: space-between; align-items: center; padding-block: 0.55rem; border-block-end: 1px solid var(--border); font-size: 0.9rem; }
+    .score-row:last-child { border-block-end: 0; }
+    .tag { font-family: var(--mono); font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-weight: 700; }
+    .tag-bad { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+    .tag-ok { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+    pre {
+      background: #070b10; border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem; overflow-x: auto; font-family: var(--mono); font-size: 0.8rem;
+      color: #cbd5e1; direction: ltr; text-align: left; margin: 0.75rem 0 0;
+    }
+    .cv-paper { background: #ffffff; color: #0f172a; border-radius: 12px; padding: 1.4rem; direction: ltr; text-align: left; font-family: var(--font-en); }
+    .cv-paper h3 { margin: 0 0 0.2rem; color: #0f172a; }
+    .cv-paper hr { border: 0; border-top: 1px solid #cbd5e1; margin: 0.75rem 0; }
+    .cv-paper ul { margin: 0.35rem 0 0; padding-left: 1.15rem; font-size: 0.88rem; color: #334155; }
+    @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; } }
+    @media print {
+      .topbar, .tabs, #auditPanel, .no-print { display: none !important; }
+      body { background: #fff; color: #000; }
+      .cv-paper { border: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <strong id="headTitle">Demo 03 — فحص سلبي للويب + مقارنة سيرة ذاتية ATS</strong>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <a class="btn" href="../index.html" id="backBtn">عودة إلى ومضة ستوديو</a>
+        <button id="langBtn" class="btn btn-ok" type="button">English</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="btn active" data-tab="auditPanel" id="tabAudit" type="button">١. عينة فحص Headers والأداء</button>
+      <button class="btn" data-tab="cvPanel" id="tabCv" type="button">٢. مقارنة سيرة ذاتية ATS (قبل / بعد)</button>
+    </div>
+
+    <section id="auditPanel" class="panel active">
+      <div class="grid-2">
+        <div class="card">
+          <h2 style="margin:0 0 0.8rem;font-size:1.1rem;" id="auditHead">بطاقة الفحص السلبي العام (Passive Check)</h2>
+          <div class="score-row"><span>Content-Security-Policy (CSP)</span><span class="tag tag-bad">MISSING → FIXED</span></div>
+          <div class="score-row"><span>Strict-Transport-Security (HSTS)</span><span class="tag tag-bad">MISSING → FIXED</span></div>
+          <div class="score-row"><span>X-Content-Type-Options: nosniff</span><span class="tag tag-ok">PASS</span></div>
+          <div class="score-row"><span>Referrer-Policy &amp; Permissions-Policy</span><span class="tag tag-bad">WEAK → FIXED</span></div>
+          <div class="score-row"><span>Arabic RTL Logical CSS + Lazy Images</span><span class="tag tag-ok">OPTIMIZED</span></div>
+          <p style="margin:0.9rem 0 0;color:var(--muted);font-size:0.86rem;" id="auditNote">ملاحظة: يتم الفحص باستخدام رؤوس HTTP العامة وHTML الظاهر فقط — بدون أي اختبار اختراق نشط.</p>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;">
+            <strong id="snipTitle">كود الإصلاح الجاهز (vercel.json / Nginx)</strong>
+            <button class="btn" id="copySnipBtn" type="button">Copy Snippet</button>
+          </div>
+          <pre id="headerCode">{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" }
+      ]
+    }
+  ]
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="cvPanel" class="panel">
+      <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-block-end:1rem;">
+        <span style="color:var(--muted);font-size:0.9rem;" id="cvSub">قارن بين السيرة الذاتية المرفوضة آلياً والنسخة المتوافقة مع أنظمة ATS (تُحفظ كـ PDF بضغطة زر).</span>
+        <button class="btn btn-ok" type="button" onclick="window.print()" id="printCvBtn">طباعة / حفظ كـ PDF</button>
+      </div>
+
+      <div class="grid-2">
+        <div class="card no-print">
+          <span class="tag tag-bad">BEFORE (Fails ATS)</span>
+          <h3 style="margin:0.6rem 0 0.4rem;">جداول معقدة + صور + وصف عام</h3>
+          <ul style="margin:0;padding-inline-start:1.2rem;color:var(--muted);font-size:0.88rem;">
+            <li>تصميم عمودين داخل جدول يمنع قارئ ATS من استخراج الخبرات</li>
+            <li>شرائط مهارات رسومية (★★★☆☆) غير مقروءة آلياً</li>
+            <li>عبارات عامة: "عملت على تطوير مواقع" بدون أرقام إنجاز</li>
+          </ul>
+        </div>
+
+        <div class="cv-paper">
+          <span class="tag tag-ok">AFTER (ATS-Ready Sample)</span>
+          <h3 style="margin-top:0.6rem;">KARIM HASSAN — Front-End Developer</h3>
+          <div style="font-size:0.84rem;color:#475569;">Cairo, Egypt • GitHub • LinkedIn • Portfolio</div>
+          <hr />
+          <strong style="font-size:0.9rem;">EXPERIENCE</strong>
+          <ul>
+            <li>Built bilingual RTL/LTR React checkout components, reducing mobile drop-off by 24%.</li>
+            <li>Migrated 18 legacy stylesheets to CSS logical properties and improved Lighthouse Performance from 61 to 96.</li>
+          </ul>
+          <hr />
+          <strong style="font-size:0.9rem;">CORE SKILLS</strong>
+          <div style="font-size:0.85rem;color:#334155;margin-top:0.25rem;">TypeScript, React, Next.js, Tailwind CSS, Arabic RTL UI, Web Performance, HTTP Security Headers</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      let lang = "ar";
+      document.querySelectorAll("[data-tab]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-tab]").forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(btn.getAttribute("data-tab")).classList.add("active");
+        });
+      });
+
+      document.getElementById("copySnipBtn").addEventListener("click", () => {
+        try { navigator.clipboard.writeText(document.getElementById("headerCode").textContent); } catch (e) {}
+      });
+
+      document.getElementById("langBtn").addEventListener("click", () => {
+        lang = lang === "ar" ? "en" : "ar";
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const ar = lang === "ar";
+        document.getElementById("langBtn").textContent = ar ? "English" : "العربية";
+        document.getElementById("backBtn").textContent = ar ? "عودة إلى ومضة ستوديو" : "Back to Wamda Studio";
+        document.getElementById("headTitle").textContent = ar ? "Demo 03 — فحص سلبي للويب + مقارنة سيرة ذاتية ATS" : "Demo 03 — Passive Header Audit + ATS CV Showcase";
+        document.getElementById("tabAudit").textContent = ar ? "١. عينة فحص Headers والأداء" : "1. Security Headers & Speed Sample";
+        document.getElementById("tabCv").textContent = ar ? "٢. مقارنة سيرة ذاتية ATS (قبل / بعد)" : "2. ATS CV Before / After Showcase";
+        document.getElementById("auditHead").textContent = ar ? "بطاقة الفحص السلبي العام (Passive Check)" : "Passive Public Inspection Scorecard";
+        document.getElementById("auditNote").textContent = ar ? "ملاحظة: يتم الفحص باستخدام رؤوس HTTP العامة وHTML الظاهر فقط — بدون أي اختبار اختراق نشط." : "Note: Strictly passive public HTTP response header & HTML check — zero active probing.";
+        document.getElementById("snipTitle").textContent = ar ? "كود الإصلاح الجاهز (vercel.json / Nginx)" : "Drop-In Fix Snippet (vercel.json / Nginx)";
+        document.getElementById("cvSub").textContent = ar ? "قارن بين السيرة الذاتية المرفوضة آلياً والنسخة المتوافقة مع أنظمة ATS (تُحفظ كـ PDF بضغطة زر)." : "Compare an ATS-failing CV layout against an ATS-clean printable resume.";
+        document.getElementById("printCvBtn").textContent = ar ? "طباعة / حفظ كـ PDF" : "Print / Save as PDF";
+      });
+    })();
+  </script>
+</body>
+</html>
